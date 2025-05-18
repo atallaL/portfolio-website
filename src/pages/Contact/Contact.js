@@ -2,12 +2,12 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 
-function About() {
+function Contact() {
     return (
         <div>
-            <h1>about</h1>
+            <h1>contact me</h1>
         </div>
     );
 }
 
-export default About;
+export default Contact;
