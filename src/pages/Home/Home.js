@@ -11,66 +11,41 @@ function Home() {
 
     //states
     const [lightMode, setLightMode] = useState(true);
-    
-    const atTopRef = useRef(true);
+    const [bottomActive, setBottomActive] = useState(false);
 
-    //keep page positions as reference
-    const bottomRef = useRef(null);
-    const topRef = useRef(null);
-
-    //scroll to bottom page method
-    const scrollBottom = () => {
-        bottomRef.current.scrollIntoView({behavior: 'smooth'})
-
+    const slideBottomUp = () => {
+        setBottomActive(true);
     };
 
-    //scroll to top page method
-    const scrollTop = () => {
-        topRef.current.scrollIntoView({behavior: 'smooth'})
+    const slideBottomDown = () => {
+        setBottomActive(false);
     };
 
     //handle scrolling
     useEffect(() => {
 
-        //timeout for the scroll
-        let scrollTimeout;
-
         //method for handling scroll direction and position
         const handleScroll = (e) => {
             //if scrolling down and we at the top already
             if (e.deltaY > 0) {
-                console.log("scrolling down")
-                scrollBottom();
+                slideBottomUp();
             //if scrolling up and we at the bottom
             } else if (e.deltaY < 0) {
-                scrollTop();
-                console.log("scrolling up")
+                slideBottomDown();
             }
         };
 
-        //update position
-        const setPosition = () => {
-            //use timeout
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                const isAtTop = window.scrollY > 50;
-                atTopRef.current = isAtTop;
-            }, 300);
-        };
-
         window.addEventListener('wheel', handleScroll, {passive: true});
-        window.addEventListener('scroll', setPosition);
         
         return () => {
           window.removeEventListener('wheel', handleScroll);
-          window.removeEventListener('scroll', setPosition);
         };
-      }, []); 
+      }, [bottomActive]); 
 
     
     return (
         <div className="mainContent">
-            <div className="topMain" ref={topRef}>
+            <div className="topMain">
                 <div className="container-fluid">
                     <div className="row">
                         <div className="topMainText col-md-4 offset-md-1">
@@ -86,6 +61,10 @@ function Home() {
                         
                     </div>
                 </div>
+            </div>
+
+            {/* for the slide up animation */}
+            <div className={`slide ${bottomActive ? 'active' : ''}`}>
 
                 {/* curve at the bottom of home page */}
                 <div className="curveDivider">
@@ -110,23 +89,24 @@ function Home() {
                     </svg>
                 </div>
 
+                
                 {/* arrow in the curve divider */}
-                <div className="arrow" onClick={scrollBottom}>
-                        <div className="arrowText">
-                            <p>scroll!</p>
-                        </div>
-                        <div className="arrowSymbol">
-                            <FontAwesomeIcon icon={faAngleDown} size="2x" />
-                        </div>
+                <div className="arrow" onClick={slideBottomUp}>
+                    <div className="arrowText">
+                        <p>scroll!</p>
+                    </div>
+                    <div className="arrowSymbol">
+                        <FontAwesomeIcon icon={faAngleDown} size="2x" />
                     </div>
                 </div>
 
-            <div className="bottomMain" ref={bottomRef}>
-                <ul>
-                    <li> <Link to = "/about"><h2>to about</h2></Link> </li>
-                    <li> <Link to = "/projects"><h2>to projects</h2></Link> </li>
-                    <li> <Link to = "/contact"><h2>to contact</h2></Link> </li>
-                </ul>
+                <div className="bottomMain">
+                    <ul>
+                        <li> <Link to = "/about"><h2>to about</h2></Link> </li>
+                        <li> <Link to = "/projects"><h2>to projects</h2></Link> </li>
+                        <li> <Link to = "/contact"><h2>to contact</h2></Link> </li>
+                    </ul>
+                </div>
             </div>
         </div>
     );

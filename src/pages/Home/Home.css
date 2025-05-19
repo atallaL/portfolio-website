@@ -11,12 +11,13 @@ body, html {
 }
 
 .topMain {
+    z-index: 1;
     display: flex;
     flex-direction:column-reverse;
     align-items:center;
     justify-content: center;
     background-color: #CBC3DB;
-    height:50%;
+    height:100vh;
     width:100%;
     position: relative;
     padding: 0 0 100px 0;
@@ -61,7 +62,7 @@ body, html {
 }
 
 .curveDivider {
-    position: absolute;
+    position: relative;
     bottom:0;
     left: 0;
     width: 100%;
@@ -72,26 +73,42 @@ body, html {
     display: block;
     width: 100%;
     height: 150px;    
-    z-index:-1;   
   }
 
 .arrow {
     display:flex;
     position: absolute;
+    top: 60px;
     flex-direction: column;
     align-items:center;
     color: #190D21;
-    bottom:10px;
     cursor: pointer;
+    width:100%
 }
 .arrowText p {
     font-weight: 800;
     font-size: 20px;
     margin:0;
-    margin-bottom:-5px;
+    margin-bottom:-10px;
 }
 
 .bottomMain {
     background-color: #F5F5E7;
-    height:50%;
+    height: 100vh;
+    width:100%;
 }
+
+.slide {
+    position: fixed;
+    top:calc(100% - 130px);
+    width:100%;
+    transition: transform 0.45s  ease-in-out;
+    z-index:2;
+}
+
+.slide.active {
+    transform: translateY(-75%);
+}
+
+
+
