@@ -1,0 +1,97 @@
+/* remove scrollbar */
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+  }
+
+.mainContent {
+    height: 200vh;
+}
+
+.topMain {
+    display: flex;
+    flex-direction:column-reverse;
+    align-items:center;
+    justify-content: center;
+    background-color: #CBC3DB;
+    height:50%;
+    width:100%;
+    position: relative;
+    padding: 0 0 100px 0;
+}
+
+.row {
+    padding: 0 4vw;
+    align-items:center;
+}
+
+.topMainText {
+    color: #190D21;
+}
+
+.topMainText h1 {
+    font-weight: 800;
+    font-size: 60px;
+    margin: 0;
+    margin-top: -12px;
+}
+
+.topMainText h2 {
+    font-weight: 500;
+    font-size: 35px;
+    margin: 0;
+}
+
+.topMainText p {
+    font-weight: 400;
+    font-size: 25px;
+    margin-top: 35px;
+    line-height: 34px
+}
+
+.logoImageContainer {
+    display:flex;
+    justify-content:center;
+}
+
+.logoImage {
+    width:480px;
+}
+
+.curveDivider {
+    position: absolute;
+    bottom:0;
+    left: 0;
+    width: 100%;
+    height:130px;
+}
+
+.curveDivider svg {
+    display: block;
+    width: 100%;
+    height: 150px;    
+    z-index:-1;   
+  }
+
+.arrow {
+    display:flex;
+    position: absolute;
+    flex-direction: column;
+    align-items:center;
+    color: #190D21;
+    bottom:10px;
+    cursor: pointer;
+}
+.arrowText p {
+    font-weight: 800;
+    font-size: 20px;
+    margin:0;
+    margin-bottom:-5px;
+}
+
+.bottomMain {
+    background-color: #F5F5E7;
+    height:50%;
+}
