@@ -2,8 +2,8 @@ import React, {useRef, useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import './Home.css'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faAngleDown, faHouse, faMoon} from '@fortawesome/free-solid-svg-icons';
 
 import logoLight from '../../assets/logo_light.png';
 
@@ -45,20 +45,33 @@ function Home() {
     
     return (
         <div className="mainContent">
+            {/* top bar nav thing */}
+            <div className="topNav">
+                <div className="topLine"></div>
+                <div className="topHouse">
+                    <FontAwesomeIcon icon={faHouse} size="1.3x" />
+                </div>
+                <div className="topMoon">
+                    <FontAwesomeIcon icon={faMoon} />
+                </div>
+                <div className="topLine"></div>
+            </div>
+
+
             <div className="topMain">
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="topMainText col-md-4 offset-md-1">
+
+                        {/* logo image */}
+                        <div className="logoImageContainer offset-md-1 col-md-5 col-xs-12">
+                            <img className="logoImage" src={logoLight} alt="caricature illustration of me" />
+                        </div>
+
+                        <div className="topMainText col-md-5 offset-md-1 col-xs-12">
                             <h2>hello, i'm</h2>
                             <h1>leonardo atalla</h1>
                             <p>i'm a full stack developer, UX/UI designer, and software engineering student at the university of ottawa</p>
                         </div>
-
-                        {/* logo image */}
-                        <div className="logoImageContainer offset-md-1 col-md-6">
-                            <img className="logoImage" src={logoLight} alt="caricature illustration of me" />
-                        </div>
-                        
                     </div>
                 </div>
             </div>

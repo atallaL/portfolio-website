@@ -10,6 +10,48 @@ body, html {
     height: 200vh;
 }
 
+/* top nav bar section */
+.topNav {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    top: 30px;
+    align-items: center;
+    justify-content: center;
+    z-index:2;
+}
+
+.topLine:first-child {
+    margin-left:40px; 
+}
+
+.topLine:last-child {
+    margin-right:40px;
+}
+
+.topLine {
+    display: flex;
+    flex-grow: 1;
+    height: 1px;
+    background-color: #190D21;
+    max-width: 250px;
+    margin: 0 20px;
+}
+
+.topHouse, .topMoon {
+    display: flex;
+    align-items: center;
+    color: #190D21;
+    padding: 0 15px;
+    font-size:23px;
+    cursor: pointer;
+}
+
+.topMoon {
+    font-size: 24px;
+}
+
+/* top screen content */
 .topMain {
     z-index: 1;
     display: flex;
@@ -24,6 +66,8 @@ body, html {
 }
 
 .row {
+    display:flex;
+    flex-direction:row-reverse;
     padding: 0 4vw;
     align-items:center;
 }
@@ -37,9 +81,11 @@ body, html {
     font-size: 60px;
     margin: 0;
     margin-top: -12px;
+    text-wrap-mode: nowrap;
 }
 
 .topMainText h2 {
+    padding-top:50px;
     font-weight: 500;
     font-size: 35px;
     margin: 0;
@@ -49,7 +95,7 @@ body, html {
     font-weight: 400;
     font-size: 25px;
     margin-top: 35px;
-    line-height: 34px
+    line-height: 34px;
 }
 
 .logoImageContainer {
@@ -58,9 +104,72 @@ body, html {
 }
 
 .logoImage {
-    width:480px;
+    width:540px;
+    transition: transform 0.3s ease-in-out;
 }
 
+.logoImage:hover {
+    transform: scale(1.1);
+}
+
+/* responsiveness */
+@media only screen and (max-width: 1200px) {
+    .logoImage {
+        width:480px;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .topMainText h1 {
+        font-size: 45px;
+    }
+    
+    .topMainText h2 {
+        font-size:25px;
+    }
+
+    .topMainText p {
+        font-size: 20px;
+        line-height: 30px;
+        margin-top: 25px;
+    }
+
+    .logoImage {
+        width: 360px;
+    }
+
+}
+
+@media only screen and (max-width: 768px) {
+    .topMainText h1 {
+        font-size: 35px;
+        margin-top: -5px;
+    }
+
+    .topMainText h1, .topMainText h2, .topMainText p {
+        text-align:center;
+    }
+
+    @media only screen and (max-height: 850px) {
+        .logoImage {
+            width: 240px;
+        }
+
+        .topMainText h2 {
+            padding-top: 10px;
+        }
+    }
+}
+
+@media only screen and (max-height: 650px) {
+    .logoImage {
+        width: 360px;
+    }
+}
+
+
+
+/* bottom curve thing */
 .curveDivider {
     position: relative;
     bottom:0;
@@ -92,6 +201,7 @@ body, html {
     margin-bottom:-10px;
 }
 
+/* bottom main content */
 .bottomMain {
     background-color: #F5F5E7;
     height: 100vh;
@@ -103,11 +213,11 @@ body, html {
     top:calc(100% - 130px);
     width:100%;
     transition: transform 0.45s  ease-in-out;
-    z-index:2;
+    z-index:3;
 }
 
 .slide.active {
-    transform: translateY(-75%);
+    transform: translateY(-87vh);
 }
 
 
