@@ -8,3 +8,17 @@ code {
   monospace;
 }
 
+:root {
+  --bg: #CBC3DB;
+  --text: #190D21;
+  --secondary: #F5F5E7;
+  --line: #190D21;
+}
+
+body.dark {
+  --bg: #393D2F;
+  --text: #ECFFD3;
+  --secondary: #272B1C;
+  --line: #ECFFD3;
+}
+

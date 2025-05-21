@@ -3,10 +3,11 @@ import {Link} from 'react-router-dom'
 import './Home.css'
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faAngleDown, faHouse, faSun} from '@fortawesome/free-solid-svg-icons';
+import {faAngleDown, faHouse, faSun, faMoon} from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 import logoLight from '../../assets/logo_light.png';
+import logoDark from '../../assets/logo_dark.png';
 
 function Home() {
 
@@ -14,6 +15,10 @@ function Home() {
     const [lightMode, setLightMode] = useState(true);
     const [bottomActive, setBottomActive] = useState(false);
     const [messages, setMessages] = useState([]);
+
+    //curve divider color responsiveness
+    const curveColor = lightMode ? "#F5F5E7" : "#272B1C";
+    const curveShadowColor = lightMode ? "rgba(56, 38, 84, 0.5)" : "#515643";
 
     //sliding methods for clarity
     const slideBottomUp = () => {
@@ -38,9 +43,13 @@ function Home() {
         return {id, angle, message, distance, x, y};
     }
 
+    //handle lightmode/darkmode
+    useEffect(() => {
+        document.body.classList.toggle('dark', !lightMode)
+    }, [lightMode]);
+
     //handle scrolling
     useEffect(() => {
-
         //method for handling scroll direction and position
         const handleScroll = (e) => {
             //if scrolling down and we at the top already
@@ -83,13 +92,43 @@ function Home() {
         }, 1500);
     }
     
+    //on initial page loading, stagger the loads and cache images
+    useEffect(() => {
+        //preload and cache images
+        const light = new Image();
+        const dark = new Image();
+        light.src = logoLight;
+        dark.src = logoDark;
+
+
+        //get all like elements on page
+        const sections = [
+            document.querySelector(".topMainText"),
+            document.querySelector(".logoImageContainer"),
+        ];
+        
+        //do a load in for each element
+        sections.forEach((elem, index) => {
+            elem.classList.add("enterAnim"); //add the class for elements that will be animated
+            setTimeout(() => {
+                elem.classList.add("visible"); //make visible
+            }, index*1500); //do it every like .5 seconds
+        });
+    }, []);
+
+    const switchViewMode = () => {
+        setLightMode(prev => !prev);
+    };
+
+
+
     return (
         <div className="mainContent">
             {/* top bar nav thing */}
             <div className="topNav">
                 <div className="topLine"></div>
-                <div className="topMoon">
-                    <FontAwesomeIcon icon={faSun} />
+                <div className="topMoon" onClick={switchViewMode}>
+                    <FontAwesomeIcon icon={lightMode ? faSun : faMoon} />
                 </div>
                 <div className="topLine"></div>
             </div>
@@ -100,9 +139,9 @@ function Home() {
                     <div className="row">
 
                         {/* logo image */}
-                        <div className="logoImageContainer offset-md-1 col-md-5 col-xs-12">
+                        <div className="enterAnim logoImageContainer offset-md-1 col-md-5 col-xs-12">
                             <div className="logoImageWrapper" onClick={handleMeClick}>
-                                <img className="logoImage" src={logoLight} alt="caricature illustration of me" />
+                                <img className="logoImage" src={lightMode ? logoLight : logoDark} alt="caricature illustration of me" />
                                 
                                 {/* render generated messages */}
                                 <div className="messageContainer">
@@ -127,7 +166,7 @@ function Home() {
 
                         </div>
 
-                        <div className="topMainText col-md-5 offset-md-1 col-xs-12">
+                        <div className="enterAnim topMainText col-md-5 offset-md-1 col-xs-12">
                             <h2>hello, i'm</h2>
                             <h1>leonardo atalla</h1>
                             <p>i'm a full stack developer, UX/UI designer, and software engineering student at the university of ottawa</p>
@@ -166,13 +205,13 @@ function Home() {
                         {/* define drop shadow for curve*/}
                         <defs>
                             <filter id="drop" height="100%">
-                                <feDropShadow dx="0" dy="-5" stdDeviation="15" floodColor="rgba(56, 38, 84, 0.5)" />
+                                <feDropShadow dx="0" dy="-5" stdDeviation="15" floodColor={curveShadowColor} />
                             </filter>
                         </defs>
                     
                         <path
                         d= "M0,160 C480,0 960,0 1440,160 L1440,320 L0,320 Z"
-                        fill="#F5F5E7"
+                        fill={curveColor}
                         style={{filter:"url(#drop)"}}
                         />
                     </svg>

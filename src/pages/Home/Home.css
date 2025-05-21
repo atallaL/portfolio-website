@@ -33,7 +33,7 @@ body, html {
     display: flex;
     flex-grow: 1;
     height: 1px;
-    background-color: #190D21;
+    background-color: var(--line);
     max-width: 200px;
     margin: 0 20px;
 }
@@ -41,7 +41,7 @@ body, html {
 .topMoon {
     display: flex;
     align-items: center;
-    color: #190D21;
+    color: var(--text);
     padding: 0 15px;
     font-size:23px;
     cursor: pointer;
@@ -58,7 +58,7 @@ body, html {
     flex-direction:column-reverse;
     align-items:center;
     justify-content: center;
-    background-color: #CBC3DB;
+    background-color: var(--bg);
     height:100vh;
     width:100%;
     position: relative;
@@ -73,7 +73,7 @@ body, html {
 }
 
 .topMainText {
-    color: #190D21;
+    color: var(--text);
 }
 
 .topMainText h1 {
@@ -165,7 +165,7 @@ body, html {
     display: flex;
     flex-grow: 1;
     width: 1px;
-    background-color: #190D21;
+    background-color: var(--line);
     height: 300px;
     margin: 10px;
     transition: height 1.4s ease 0.45s;
@@ -181,7 +181,7 @@ body, html {
 
 
 .socialLinks a {
-    color: #190D21;
+    color: var(--text);
 }
 
 /* bottom curve thing */
@@ -205,11 +205,11 @@ body, html {
     top: 60px;
     flex-direction: column;
     align-items:center;
-    color: #190D21;
+    color: var(--text);
     width:100%
 }
 .arrowText p {
-    font-weight: 800;
+    font-weight: 700;
     font-size: 20px;
     margin:0;
     margin-bottom:-10px;
@@ -233,7 +233,7 @@ body, html {
 
 /* bottom main content */
 .bottomMain {
-    background-color: #F5F5E7;
+    background-color: var(--secondary);
     height: 100vh;
     width:100%;
 }
@@ -251,7 +251,7 @@ body, html {
 }
 
 .bottomLinks p {
-    color: #190D21;
+    color: var(--text);
     margin: 0;
     font-size: 15px;
     font-weight:600;
@@ -260,7 +260,7 @@ body, html {
 }
 
 .bottomLinks h2 {
-    color: hsl(276, 43%, 9%);
+    color: var(--text);
     margin: 0;
     font-size: 100px;
     font-weight:10;
@@ -431,3 +431,16 @@ body, html {
         width: 360px;
     }
 }
+
+/* entry animation */
+.enterAnim{
+    opacity:0;
+    transition: opacity 1.5s ease, transform 1.5s ease;
+    pointer-events: none;
+}
+
+.enterAnim.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
