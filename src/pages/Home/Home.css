@@ -34,7 +34,7 @@ body, html {
     flex-grow: 1;
     height: 1px;
     background-color: #190D21;
-    max-width: 250px;
+    max-width: 200px;
     margin: 0 20px;
 }
 
@@ -104,16 +104,26 @@ body, html {
 }
 
 .logoImageWrapper {
+    pointer-events: none;
+    position:relative;
     border-radius:40%;
-    transition: transform 0.3s ease-in-out;
 }
 
 .logoImage {
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    pointer-events: auto;
+    border-radius:50%;
     width:540px;
+    z-index:2;
+    transition: transform 0.3s ease-in-out;
 }
 
-.logoImageWrapper:hover {
-    transform: scale(1.1);
+.logoImage:hover {
+    transform: scale(1.05);
 }
 
 /* bounce animation on logo click */
@@ -123,10 +133,10 @@ body, html {
 
 /* bounce animation */
 @keyframes bounce {
-    0% { transform: scale(1); }
-    20% { transform: scale(0.97); }
-    60% { transform: scale(1.03); }
-    100%{ transform: scale(1); } 
+    0% { transform: scale(1.05); }
+    20% { transform: scale(1.04); }
+    60% { transform: scale(1.06); }
+    100%{ transform: scale(1.05); } 
 }
 
 .socialNavContainer{
@@ -168,6 +178,7 @@ body, html {
 .socialGit, .socialLinkedin {
     font-size: 30px;
 }
+
 
 .socialLinks a {
     color: #190D21;
@@ -277,6 +288,50 @@ body, html {
     transform: scale(1.1) !important;
 }
 
+/* message generation stuff */
+.messageContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%;
+    height:50%;
+    pointer-events: none;
+    z-index:-1;
+    overflow: visible;
+}
+
+.floatingMessage {
+    position: absolute;
+    font-weight: 500;
+    font-size: 40px;
+    color: #ffffff;
+    opacity: 0;
+    top: 50%;
+    left: 50%;
+    animation: popOut 1.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    transform-origin: center;
+}
+
+/* animation to make it look like the text is popping out after generation */
+@keyframes popOut {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        transform: translate(calc(-50% + var(--x) * 0.3), calc(-50% + var(--y) * 0.3)) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    60% {
+        transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(calc(var(--rotation)));
+        opacity: 0.6;
+    }
+    100% {
+        transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(calc(var(--rotation)));
+        opacity: 0;
+    }
+}
+
 /* responsiveness */
 @media only screen and (max-width: 1200px) {
     .logoImage {
@@ -309,6 +364,10 @@ body, html {
     
     .bottomLinks h2 {
         font-size: 70px;
+    }
+
+    .floatingMessage {
+        font-size: 30px;
     }
 
 }
@@ -367,7 +426,7 @@ body, html {
     }
 }
 
-@media only screen and (max-height: 650px) {
+@media only screen and (max-height: 650px) and (min-width: 786px){
     .logoImage {
         width: 360px;
     }

@@ -13,6 +13,7 @@ function Home() {
     //states
     const [lightMode, setLightMode] = useState(true);
     const [bottomActive, setBottomActive] = useState(false);
+    const [messages, setMessages] = useState([]);
 
     //sliding methods for clarity
     const slideBottomUp = () => {
@@ -24,14 +25,17 @@ function Home() {
     };
 
     //messages for when logo is clicked
-    const lightMessages = ["hello!", 'hi!', 'hey!', 'whats up?', 'heyyyyy']
+    const lightMessages = ["hello!", 'hi!', 'hey!',]
 
     //helper method to generate a random angle and message
     const generateAngleMessage = () => {
         const message = lightMessages[Math.floor(Math.random() * lightMessages.length)] //generate random message from array
-        const angle = Math.random() * Math.PI; //random angle (radian)
-        const randID = Date.now() + Math.random(); //effective way to make random unique IDs
-        return {randID, angle, message};
+        const angle = (Math.random()-0.5) * (Math.PI / 2); //random angle (angle -45 to 45)
+        const id = Date.now() + Math.random(); //effective way to make random unique IDs
+        const distance = 50 + Math.random() * 10; //message travels a random distance
+        const x = (Math.sin(angle) * 3) * distance; //x and y values to force upwards movement
+        const y = -Math.abs(Math.cos(angle) * distance) - 100;
+        return {id, angle, message, distance, x, y};
     }
 
     //handle scrolling
@@ -68,6 +72,15 @@ function Home() {
 
         //add bounce
         logo.classList.add('bounce')
+
+        //generate a message and put it into messages state
+        const generatedMessage = generateAngleMessage();
+        setMessages(prev => [...prev, generatedMessage]);
+
+        //remove after some time based on id (1.5s)
+        setTimeout(() => {
+            setMessages(prev => prev.filter(m => m.id !== generatedMessage.id));
+        }, 1500);
     }
     
     return (
@@ -90,7 +103,28 @@ function Home() {
                         <div className="logoImageContainer offset-md-1 col-md-5 col-xs-12">
                             <div className="logoImageWrapper" onClick={handleMeClick}>
                                 <img className="logoImage" src={logoLight} alt="caricature illustration of me" />
+                                
+                                {/* render generated messages */}
+                                <div className="messageContainer">
+                                    {messages.map(({id, angle, message, distance, x, y}) => (
+                                        <div 
+                                            key={id} 
+                                            className="floatingMessage" 
+                                            style={{
+                                                '--angle': `${angle}rad`,
+                                                '--distance': `${distance}px`,
+                                                '--x': `${x}px`, 
+                                                '--y': `${y}px`,
+                                                '--rotation': `${angle*(180/Math.PI)}deg`
+                                            }}
+                                        >
+                                            {message}
+                                        </div>
+                                    ))}
+
+                                </div>
                             </div>
+
                         </div>
 
                         <div className="topMainText col-md-5 offset-md-1 col-xs-12">
