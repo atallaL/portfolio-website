@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 function Contact() {
     return (
         <div>
-            <h1>contact me</h1>
+            <h1>in progress</h1>
         </div>
     );
 }

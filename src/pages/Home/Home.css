@@ -15,7 +15,7 @@ body, html {
     display: flex;
     position: fixed;
     width: 100%;
-    top: 30px;
+    top: 20px;
     align-items: center;
     justify-content: center;
     z-index:2;
@@ -38,7 +38,7 @@ body, html {
     margin: 0 20px;
 }
 
-.topHouse, .topMoon {
+.topMoon {
     display: flex;
     align-items: center;
     color: #190D21;
@@ -48,7 +48,7 @@ body, html {
 }
 
 .topMoon {
-    font-size: 24px;
+    font-size: 30px;
 }
 
 /* top screen content */
@@ -103,13 +103,178 @@ body, html {
     justify-content:center;
 }
 
-.logoImage {
-    width:540px;
+.logoImageWrapper {
+    border-radius:40%;
     transition: transform 0.3s ease-in-out;
 }
 
-.logoImage:hover {
+.logoImage {
+    width:540px;
+}
+
+.logoImageWrapper:hover {
     transform: scale(1.1);
+}
+
+/* bounce animation on logo click */
+.logoImage.bounce {
+    animation: bounce 0.3s ease-out;
+}
+
+/* bounce animation */
+@keyframes bounce {
+    0% { transform: scale(1); }
+    20% { transform: scale(0.97); }
+    60% { transform: scale(1.03); }
+    100%{ transform: scale(1); } 
+}
+
+.socialNavContainer{
+    display:flex;
+    position: fixed;
+    bottom: 20px;
+    right: 25px;
+    z-index:5;
+    transition: transform 1.5s ease 0.25s, opacity 0.7s ease 1.2s;
+    transform: translateY(0);
+}
+
+.socialNavContainer.active{
+    transform: translateY(calc(-100vh + 350px));
+    opacity: 75%;
+}
+
+.socialLinks {
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    height:100%;
+}
+
+.socialLinks .vertLine {
+    display: flex;
+    flex-grow: 1;
+    width: 1px;
+    background-color: #190D21;
+    height: 300px;
+    margin: 10px;
+    transition: height 1.4s ease 0.45s;
+}
+
+.vertLine.active {
+    height:200px;
+}
+
+.socialGit, .socialLinkedin {
+    font-size: 30px;
+}
+
+.socialLinks a {
+    color: #190D21;
+}
+
+/* bottom curve thing */
+.curveDivider {
+    position: relative;
+    bottom:0;
+    left: 0;
+    width: 100%;
+    height:130px;
+}
+
+.curveDivider svg {
+    display: block;
+    width: 100%;
+    height: 150px;    
+  }
+
+.arrow {
+    display:flex;
+    position: absolute;
+    top: 60px;
+    flex-direction: column;
+    align-items:center;
+    color: #190D21;
+    width:100%
+}
+.arrowText p {
+    font-weight: 800;
+    font-size: 20px;
+    margin:0;
+    margin-bottom:-10px;
+}
+
+.arrowSymbol {
+    cursor: pointer;
+}
+/* slide animation */
+.slide {
+    position: fixed;
+    top:calc(100% - 130px);
+    width:100%;
+    transition: transform 1.1s ease;
+    z-index:3;
+}
+
+.slide.active {
+    transform: translateY(-100vh);
+}
+
+/* bottom main content */
+.bottomMain {
+    background-color: #F5F5E7;
+    height: 100vh;
+    width:100%;
+}
+
+.bottomLinkContainer {
+    height:100%;
+    display:flex;
+    align-items:end;
+}
+
+.bottomLinks {
+    display:flex;
+    flex-direction:column;
+    margin: 0 0 40px 30px;
+}
+
+.bottomLinks p {
+    color: #190D21;
+    margin: 0;
+    font-size: 15px;
+    font-weight:600;
+    margin-bottom:11px;
+    
+}
+
+.bottomLinks h2 {
+    color: hsl(276, 43%, 9%);
+    margin: 0;
+    font-size: 100px;
+    font-weight:10;
+}
+
+.bottomLinks a {
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    opacity:85%;
+    transform-origin: left center;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* if there is a link being hovered, make the rest of the links do this */
+.bottomLinks:has(a:hover) a {
+    opacity: 0.5;
+    transform: scale(0.95);
+}
+
+/* the one actually being hovered needs to overwrite this */
+.bottomLinks a:hover{
+    opacity:100% !important;
+    transform: scale(1.1) !important;
 }
 
 /* responsiveness */
@@ -138,6 +303,14 @@ body, html {
         width: 360px;
     }
 
+    .bottomLinks p {
+        font-size: 10px;
+    }
+    
+    .bottomLinks h2 {
+        font-size: 70px;
+    }
+
 }
 
 @media only screen and (max-width: 768px) {
@@ -148,6 +321,39 @@ body, html {
 
     .topMainText h1, .topMainText h2, .topMainText p {
         text-align:center;
+    }
+
+    .bottomLinkContainer {
+        height:120%;
+        display:flex;
+        align-items:center;
+    }
+
+    .bottomLinks {
+        width: 100%;
+        align-items: center;
+        margin-left: 0;
+    }
+
+    .bottomLinks p {
+        font-size: 10px;
+    }
+    
+    .bottomLinks h2 {
+        font-size: 70px;
+    }
+
+    .bottomLinks a {
+        transform-origin: center;
+    }
+
+    .vertLine {
+        height:50px !important;
+        transition: height 1.1s ease 0.25s;
+    }
+
+    .vertLine.active {
+        height:200px !important;
     }
 
     @media only screen and (max-height: 850px) {
@@ -166,59 +372,3 @@ body, html {
         width: 360px;
     }
 }
-
-
-
-/* bottom curve thing */
-.curveDivider {
-    position: relative;
-    bottom:0;
-    left: 0;
-    width: 100%;
-    height:130px;
-}
-
-.curveDivider svg {
-    display: block;
-    width: 100%;
-    height: 150px;    
-  }
-
-.arrow {
-    display:flex;
-    position: absolute;
-    top: 60px;
-    flex-direction: column;
-    align-items:center;
-    color: #190D21;
-    cursor: pointer;
-    width:100%
-}
-.arrowText p {
-    font-weight: 800;
-    font-size: 20px;
-    margin:0;
-    margin-bottom:-10px;
-}
-
-/* bottom main content */
-.bottomMain {
-    background-color: #F5F5E7;
-    height: 100vh;
-    width:100%;
-}
-
-.slide {
-    position: fixed;
-    top:calc(100% - 130px);
-    width:100%;
-    transition: transform 0.45s  ease-in-out;
-    z-index:3;
-}
-
-.slide.active {
-    transform: translateY(-87vh);
-}
-
-
-

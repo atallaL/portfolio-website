@@ -3,7 +3,8 @@ import {Link} from 'react-router-dom'
 import './Home.css'
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faAngleDown, faHouse, faMoon} from '@fortawesome/free-solid-svg-icons';
+import {faAngleDown, faHouse, faSun} from '@fortawesome/free-solid-svg-icons';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 import logoLight from '../../assets/logo_light.png';
 
@@ -13,6 +14,7 @@ function Home() {
     const [lightMode, setLightMode] = useState(true);
     const [bottomActive, setBottomActive] = useState(false);
 
+    //sliding methods for clarity
     const slideBottomUp = () => {
         setBottomActive(true);
     };
@@ -20,6 +22,17 @@ function Home() {
     const slideBottomDown = () => {
         setBottomActive(false);
     };
+
+    //messages for when logo is clicked
+    const lightMessages = ["hello!", 'hi!', 'hey!', 'whats up?', 'heyyyyy']
+
+    //helper method to generate a random angle and message
+    const generateAngleMessage = () => {
+        const message = lightMessages[Math.floor(Math.random() * lightMessages.length)] //generate random message from array
+        const angle = Math.random() * Math.PI; //random angle (radian)
+        const randID = Date.now() + Math.random(); //effective way to make random unique IDs
+        return {randID, angle, message};
+    }
 
     //handle scrolling
     useEffect(() => {
@@ -42,17 +55,28 @@ function Home() {
         };
       }, [bottomActive]); 
 
+
+    //handle when the caricature is clicked (give bounce to logo and then spit out random text)
+    const handleMeClick = () => {
+        
+        //get logo image and then remove bounce in case we are midway through an animation
+        const logo = document.querySelector('.logoImage');
+        logo.classList.remove('bounce');
+
+        //force reflow
+        void logo.offsetWidth;
+
+        //add bounce
+        logo.classList.add('bounce')
+    }
     
     return (
         <div className="mainContent">
             {/* top bar nav thing */}
             <div className="topNav">
                 <div className="topLine"></div>
-                <div className="topHouse">
-                    <FontAwesomeIcon icon={faHouse} size="1.3x" />
-                </div>
                 <div className="topMoon">
-                    <FontAwesomeIcon icon={faMoon} />
+                    <FontAwesomeIcon icon={faSun} />
                 </div>
                 <div className="topLine"></div>
             </div>
@@ -64,7 +88,9 @@ function Home() {
 
                         {/* logo image */}
                         <div className="logoImageContainer offset-md-1 col-md-5 col-xs-12">
-                            <img className="logoImage" src={logoLight} alt="caricature illustration of me" />
+                            <div className="logoImageWrapper" onClick={handleMeClick}>
+                                <img className="logoImage" src={logoLight} alt="caricature illustration of me" />
+                            </div>
                         </div>
 
                         <div className="topMainText col-md-5 offset-md-1 col-xs-12">
@@ -76,6 +102,22 @@ function Home() {
                 </div>
             </div>
 
+            {/* bottom right nav */}
+            <div className={`socialNavContainer ${bottomActive ? 'active' : ''}`}>
+                <div className="socialLinks">
+                    <div className={`vertLine ${bottomActive ? 'active' : ''}`}></div>
+                    <div className="socialLinkedin">
+                        <a href="https://www.linkedin.com/in/leonardo-atalla-2a2aa6296/">
+                            <FontAwesomeIcon icon={faLinkedin} />
+                        </a>
+                    </div>
+                    <div className="socialGit">
+                        <a href="href=https://github.com/atallaL/portfolio-website">
+                            <FontAwesomeIcon icon={faGithub} />
+                        </a>
+                    </div>
+                </div>
+            </div>
             {/* for the slide up animation */}
             <div className={`slide ${bottomActive ? 'active' : ''}`}>
 
@@ -104,21 +146,27 @@ function Home() {
 
                 
                 {/* arrow in the curve divider */}
-                <div className="arrow" onClick={slideBottomUp}>
+                <div className="arrow">
                     <div className="arrowText">
                         <p>scroll!</p>
                     </div>
-                    <div className="arrowSymbol">
+                    <div className="arrowSymbol" onClick={slideBottomUp}>
                         <FontAwesomeIcon icon={faAngleDown} size="2x" />
                     </div>
                 </div>
 
                 <div className="bottomMain">
-                    <ul>
-                        <li> <Link to = "/about"><h2>to about</h2></Link> </li>
-                        <li> <Link to = "/projects"><h2>to projects</h2></Link> </li>
-                        <li> <Link to = "/contact"><h2>to contact</h2></Link> </li>
-                    </ul>
+                    <div className="bottomLinkContainer">
+                        <div className="bottomLinks">
+                            <Link to = "/about"><p>#1</p><h2>about</h2></Link> 
+                            <Link to = "/projects"><p>#2</p><h2>projects</h2></Link> 
+                            <Link to = "/contact"><p>#3</p><h2>contact</h2></Link> 
+                        </div>
+                    </div>
+                    
+                    <div className="bottomDesc">
+
+                    </div>
                 </div>
             </div>
         </div>
