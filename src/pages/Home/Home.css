@@ -524,9 +524,31 @@ body, html {
     
 }
 
-@media only screen and (max-height: 650px) and (min-width: 786px){
+@media only screen and (max-height: 720px) and (min-width: 786px){
     .logoImage {
-        width: 360px;
+        width: 400px;
+    }
+
+    .topMainText h2 {
+        font-size:25px;
+    }
+
+    .topMainText h1 {
+        padding-top: 10px;
+        font-size:50px;
+    }
+
+    .topMainText p {
+        font-size:20px;
+    }
+
+    .arrowText p {
+        margin-bottom:-4px;
+        font-size:15px;
+    }
+
+    .arrowSymbol {
+        font-size:15px;
     }
 }
 
