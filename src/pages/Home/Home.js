@@ -32,11 +32,28 @@ function Home() {
 
     //sliding methods for clarity
     const slideBottomUp = () => {
+
+        //if already no interaction dont do anything
+        
         setBottomActive(true);
+        setNoInteraction(true);
+
+        setTimeout(() => {
+            setNoInteraction(false);
+        }, 1500);
+
     };
 
     const slideBottomDown = () => {
+        //if already no interaction dont do anything
+
         setBottomActive(false);
+        setNoInteraction(true);
+        
+        setTimeout(() => {
+            setNoInteraction(false);
+        }, 1500);
+    
     };
 
     //messages for when logo is clicked
@@ -71,8 +88,11 @@ function Home() {
 
     //handle scrolling
     useEffect(() => {
+        if (noInteraction) {return};
+
         //method for handling scroll direction and position
         const handleScroll = (e) => {
+
             //if scrolling down and we at the top already
             if (e.deltaY > 0) {
                 slideBottomUp();
@@ -87,7 +107,7 @@ function Home() {
         return () => {
           window.removeEventListener('wheel', handleScroll);
         };
-      }, [bottomActive]); 
+      }, [bottomActive, noInteraction]); 
 
 
     //handle when the caricature is clicked (give bounce to logo and then spit out random text)
@@ -107,10 +127,6 @@ function Home() {
         const generatedMessage = generateAngleMessage();
         setMessages(prev => [...prev, generatedMessage]);
 
-        //remove after some time based on id (1.5s)
-        setTimeout(() => {
-            setMessages(prev => prev.filter(m => m.id !== generatedMessage.id));
-        }, 1500);
     }
     
     //handle lightmode/darkmode
@@ -118,7 +134,7 @@ function Home() {
         document.body.classList.toggle('dark', !lightMode)
     }, [lightMode]);
 
-    //on initial page loading, stagger the loads and cache images
+    //on initial page loading
     useEffect(() => {
 
         //get all like elements on page
@@ -132,7 +148,7 @@ function Home() {
             elem.classList.add("enterAnim"); //add the class for elements that will be animated
             setTimeout(() => {
                 elem.classList.add("visible"); //make visible
-            }, index*1500); //do it every like .5 seconds
+            }, index*1000); //do it every like .5 seconds
         });
     }, []);
 
@@ -143,8 +159,8 @@ function Home() {
         setNoInteraction(true);
         setOverlayTransition(true);
         setOverlayIconColor(lightMode ? "#ECFFD3" : "#190D21");
-        setOverlayBgColor(lightMode ? "#080F08" : "#EAE1D9");
-        setOverlayHalftoneColor(lightMode ? "#333D25" : "#8E5B67");
+        setOverlayBgColor(lightMode ? "#080F08" : "#FFFFFF");
+        setOverlayHalftoneColor(lightMode ? "#EAFFC9" : "#8E5B67");
         setOverlayDropshadow(lightMode ? "drop-shadow(0 0 5px rgba(180, 180, 180, 0.5))" : "drop-shadow(0 0 5px #190D21)");
 
         setTimeout(() => { //1 second before switching themes (full screen cover)
@@ -163,7 +179,7 @@ function Home() {
     return (
         <div className="mainContent">
 
-            {/* no interaction screen */}
+            {/* no interaction transparent screen */}
             {noInteraction && (
                 <div className="noInteraction"></div>
             )}
@@ -238,7 +254,7 @@ function Home() {
                         </a>
                     </div>
                     <div className="socialGit">
-                        <a href="href=https://github.com/atallaL/portfolio-website">
+                        <a href="https://github.com/atallaL/portfolio-website">
                             <FontAwesomeIcon icon={faGithub} />
                         </a>
                     </div>

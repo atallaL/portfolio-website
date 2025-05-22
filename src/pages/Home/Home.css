@@ -6,6 +6,13 @@ body, html {
     height: 100%;
   }
 
+.noInteraction {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    background-color: transparent;
+    pointer-events: all;
+}
 .mainContent {
     height: 200vh;
 }
@@ -539,7 +546,9 @@ body, html {
     }
 
     .topMainText p {
+        margin-top:25px;
         font-size:20px;
+        line-height:27px;
     }
 
     .arrowText p {
