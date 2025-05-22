@@ -13,12 +13,14 @@ code {
   --text: #190D21;
   --secondary: #F5F5E7;
   --line: #190D21;
+
 }
 
 body.dark {
-  --bg: #393D2F;
+  --bg: #22261D;
   --text: #ECFFD3;
-  --secondary: #272B1C;
+  --secondary: #080F08;
   --line: #ECFFD3;
+
 }
 

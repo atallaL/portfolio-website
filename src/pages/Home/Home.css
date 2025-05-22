@@ -191,12 +191,15 @@ body, html {
     left: 0;
     width: 100%;
     height:130px;
+    padding-bottom:20px;
+    border-bottom: 40px solid var(--secondary);
+    overflow:hidden;
 }
 
 .curveDivider svg {
     display: block;
     width: 100%;
-    height: 150px;    
+    height: 150px;
   }
 
 .arrow {
@@ -332,6 +335,91 @@ body, html {
     }
 }
 
+/* mode transition animation */
+.overlay {
+    position: fixed;
+    height: 100vh;
+    width: 0;
+    top:0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    animation: overlayCover 0.8s ease forwards, overlayUncover 1s ease forwards 1.5s;
+    font-size: 20px;
+}
+
+.overlayIcon {
+    position: fixed;
+    opacity: 0;
+    top: -100px;
+    left: calc(50vw - 50px);
+    font-size: 150px;
+    animation: drop 1.4s cubic-bezier(.51,.01,.49,.99) forwards 0.4s;
+}
+
+/* halftone background on transition */
+.overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(currentColor 20px, transparent 20px);
+    background-size: 80px 80px;
+    opacity: 0.05; 
+    animation: halftoneAnim 5s linear infinite;
+    z-index: -1;
+}
+
+@keyframes overlayCover {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes overlayUncover {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 100vw;
+    }
+}
+
+@keyframes drop {
+    0% {
+        transform: 0;
+        opacity: 0;
+    }
+    35% {
+        transform: translateY(52vh);
+        opacity: 1;
+    }
+    55% {
+        transform: translateY(49vh); 
+    }
+    75% {
+        transform: translateY(51vh);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(58vh);
+        opacity: 0;
+    }
+}
+
+@keyframes halftoneAnim {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 150px -150px;
+    }
+}
+
 /* responsiveness */
 @media only screen and (max-width: 1200px) {
     .logoImage {
@@ -415,6 +503,15 @@ body, html {
         height:200px !important;
     }
 
+    .floatingMessage {
+        font-size: 20px;
+        top: 80%;
+    }
+
+    .overlayIcon {
+        font-size: 100px;
+    }
+
     @media only screen and (max-height: 850px) {
         .logoImage {
             width: 240px;
@@ -424,6 +521,7 @@ body, html {
             padding-top: 10px;
         }
     }
+    
 }
 
 @media only screen and (max-height: 650px) and (min-width: 786px){

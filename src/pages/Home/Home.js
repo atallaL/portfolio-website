@@ -14,11 +14,21 @@ function Home() {
     //states
     const [lightMode, setLightMode] = useState(true);
     const [bottomActive, setBottomActive] = useState(false);
+    const [noInteraction, setNoInteraction] = useState(false);
     const [messages, setMessages] = useState([]);
+    
+    //transition states and var
+    const [overlayTransition, setOverlayTransition] = useState(false);
+    const [overlayIconColor, setOverlayIconColor] = useState("");
+    const [overlayBgColor, setOverlayBgColor] = useState("");
+    const [overlayHalftoneColor, setOverlayHalftoneColor] = useState("");
+    const [overlayDropshadow, setOverlayDropshadow] = useState("");
+    let darkCount = useRef(0);
+    let overlayIcon = useRef(faMoon);
 
     //curve divider color responsiveness
-    const curveColor = lightMode ? "#F5F5E7" : "#272B1C";
-    const curveShadowColor = lightMode ? "rgba(56, 38, 84, 0.5)" : "#515643";
+    const curveColor = lightMode ? "#F5F5E7" : "#080F08";
+    const curveShadowColor = lightMode ? "drop-shadow(0 -10px 5px rgba(56, 38, 84, 0.5))" : "drop-shadow(0 -10px 5px rgba(145, 175, 142, 0.3))";
 
     //sliding methods for clarity
     const slideBottomUp = () => {
@@ -30,11 +40,27 @@ function Home() {
     };
 
     //messages for when logo is clicked
-    const lightMessages = ["hello!", 'hi!', 'hey!',]
+    const possibleMessages = lightMode ? ["hello!", 'hi!', 'hey!'] : ["zz", "zzz", "zzzzzz"]
 
     //helper method to generate a random angle and message
     const generateAngleMessage = () => {
-        const message = lightMessages[Math.floor(Math.random() * lightMessages.length)] //generate random message from array
+        let message = "";
+
+        //count clicks when its not dark mode
+        if (!lightMode) {
+            darkCount.current += 1;
+        } else {
+            darkCount.current = 0;
+        };
+
+        //if clicked 25 times, send custom message
+        if (darkCount.current > 25) {
+            darkCount.current = 0;
+            message = "dude stop"
+        } else {
+            message = possibleMessages[Math.floor(Math.random() * possibleMessages.length)] //generate random message from array
+        }
+        
         const angle = (Math.random()-0.5) * (Math.PI / 2); //random angle (angle -45 to 45)
         const id = Date.now() + Math.random(); //effective way to make random unique IDs
         const distance = 50 + Math.random() * 10; //message travels a random distance
@@ -42,11 +68,6 @@ function Home() {
         const y = -Math.abs(Math.cos(angle) * distance) - 100;
         return {id, angle, message, distance, x, y};
     }
-
-    //handle lightmode/darkmode
-    useEffect(() => {
-        document.body.classList.toggle('dark', !lightMode)
-    }, [lightMode]);
 
     //handle scrolling
     useEffect(() => {
@@ -92,14 +113,13 @@ function Home() {
         }, 1500);
     }
     
+    //handle lightmode/darkmode
+    useEffect(() => {
+        document.body.classList.toggle('dark', !lightMode)
+    }, [lightMode]);
+
     //on initial page loading, stagger the loads and cache images
     useEffect(() => {
-        //preload and cache images
-        const light = new Image();
-        const dark = new Image();
-        light.src = logoLight;
-        dark.src = logoDark;
-
 
         //get all like elements on page
         const sections = [
@@ -116,14 +136,47 @@ function Home() {
         });
     }, []);
 
+    //switch light dark mode
     const switchViewMode = () => {
-        setLightMode(prev => !prev);
-    };
+        if (overlayTransition) {return}; //buffer
 
+        setNoInteraction(true);
+        setOverlayTransition(true);
+        setOverlayIconColor(lightMode ? "#ECFFD3" : "#190D21");
+        setOverlayBgColor(lightMode ? "#080F08" : "#EAE1D9");
+        setOverlayHalftoneColor(lightMode ? "#333D25" : "#8E5B67");
+        setOverlayDropshadow(lightMode ? "drop-shadow(0 0 5px rgba(180, 180, 180, 0.5))" : "drop-shadow(0 0 5px #190D21)");
+
+        setTimeout(() => { //1 second before switching themes (full screen cover)
+            setLightMode(prev => !prev); 
+        }, 1325);
+
+        setTimeout(() => { //not clickable for another second after
+            setNoInteraction(false);
+            setOverlayTransition(false);
+            overlayIcon.current = lightMode ? faSun : faMoon; 
+        }, 2650);
+
+    };
 
 
     return (
         <div className="mainContent">
+
+            {/* no interaction screen */}
+            {noInteraction && (
+                <div className="noInteraction"></div>
+            )}
+
+            {/* transition screen */}
+            {overlayTransition && (
+                <div className="overlay" style={{backgroundColor:overlayBgColor, color:overlayHalftoneColor}}> 
+                    <div className="overlayIcon">
+                        <FontAwesomeIcon icon={overlayIcon.current} style={{color: overlayIconColor, filter: overlayDropshadow}} />
+                    </div>
+                </div>
+            )}
+
             {/* top bar nav thing */}
             <div className="topNav">
                 <div className="topLine"></div>
@@ -200,21 +253,14 @@ function Home() {
                     viewBox="0 0 1440 320"
                     xmlns="http://www.w3.org/2000/svg"
                     preserveAspectRatio="none"
+                    style={{filter:curveShadowColor}}
                     >
-
-                        {/* define drop shadow for curve*/}
-                        <defs>
-                            <filter id="drop" height="100%">
-                                <feDropShadow dx="0" dy="-5" stdDeviation="15" floodColor={curveShadowColor} />
-                            </filter>
-                        </defs>
-                    
                         <path
                         d= "M0,160 C480,0 960,0 1440,160 L1440,320 L0,320 Z"
                         fill={curveColor}
-                        style={{filter:"url(#drop)"}}
                         />
                     </svg>
+                    
                 </div>
 
                 
