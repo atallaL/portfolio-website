@@ -297,10 +297,10 @@ function Home() {
                             <Link to = "/projects"><p>#2</p><h2>projects</h2></Link> 
                             <Link to = "/contact"><p>#3</p><h2>contact</h2></Link> 
                         </div>
-                    </div>
-                    
-                    <div className="bottomDesc">
 
+                        <div className="bottomDesc">
+                            <p>&lt;/fdsfdsfds&gt;</p>
+                        </div>
                     </div>
                 </div>
             </div>

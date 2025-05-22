@@ -248,10 +248,24 @@ body, html {
     width:100%;
 }
 
+.bottomDesc {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.bottomDesc p{
+    margin: 0;
+    color: var(--text);
+    font-size:25px;
+    font-weight: 100;
+}
+
 .bottomLinkContainer {
     height:100%;
     display:flex;
+    flex-direction:row;
     align-items:end;
+    justify-content:space-between;
 }
 
 .bottomLinks {
