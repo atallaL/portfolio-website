@@ -7,8 +7,6 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function About() {
     //states
-    const [lightMode, setLightMode] = useState(true);
-
     return (
         <div className="aboutMain">
 

@@ -5,19 +5,19 @@ import {useNavigate} from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './Topbar.css'
 
-const Topbar = () => {
+const Topbar = ({lightMode, switchViewMode}) => {
   const navigate = useNavigate();
 
   return (
     <div className="globalTopNav">
         <div className="globalTopLine"></div>
-            <div className="globalTopMoon">
-                <i className={`bi ${"bi-sun"}`}></i>
+            <div className="globalTopMoon" onClick={switchViewMode}>
+                <i className={`bi ${lightMode ? "bi-sun" : "bi-moon"}`}></i>
             </div>
         <div className="globalTopLine"></div>
 
         <div className="globalTopMenu">
-            <i class="bi bi-list"></i>
+            <i className="bi bi-list"></i>
         </div>
     </div>
   );

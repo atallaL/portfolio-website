@@ -31,8 +31,8 @@
     align-items: center;
     color: var(--text);
     padding: 0 15px;
-    font-size: 30px;    
-    cursor: pointer;
+    font-size: 30px;  
+    animation: moonSlightFloat 4s ease-in-out infinite; 
 }
 
 .globalTopMenu {
@@ -41,4 +41,39 @@
     color: var(--text);
     font-size: 30px;
     cursor: pointer;
+    transition: transform 0.3s ease-out;
+    transform-origin:center;
+    will-change: transform;
+}
+
+.globalTopMenu:hover {
+    transform: scale(1.1);
+}
+
+.globalTopMoon i{
+    cursor: pointer;
+    transition: transform 0.3s ease-out;
+    transform-origin:center;
+    will-change: transform;
+}
+
+.globalTopMoon i:hover{
+    transform: scale(1.1);
+}
+
+
+@keyframes moonSlightFloat {
+    0% {
+        transform: translateY(-5%);
+    }
+
+
+    50% {
+        transform: translateY(5%)
+    }
+
+
+    100% {
+        transform: translateY(-5%);
+    }
 }

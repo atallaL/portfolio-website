@@ -10,25 +10,23 @@ import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import logoLight from '../../assets/logo_light.png';
 import logoDark from '../../assets/logo_dark.png';
 
-function Home({onNavigate}) {
+function Home({
+    onNavigate,
+    lightMode,
+    switchViewMode,
+    noInteraction,
+    handleNoInteraction,
+}) {
 
     const navigate = useNavigate();
 
     //states
-    const [lightMode, setLightMode] = useState(true);
     const [bottomActive, setBottomActive] = useState(false);
     const [atBottom, setAtBottom] = useState(false);
-    const [noInteraction, setNoInteraction] = useState(false);
     const [messages, setMessages] = useState([]);
     
     //transition states and var
-    const [overlayTransition, setOverlayTransition] = useState(false);
-    const [overlayIconColor, setOverlayIconColor] = useState("");
-    const [overlayBgColor, setOverlayBgColor] = useState("");
-    const [overlayHalftoneColor, setOverlayHalftoneColor] = useState("");
-    const [overlayDropshadow, setOverlayDropshadow] = useState("");
     let darkCount = useRef(0);
-    let overlayIcon = useRef("bi-moon-fill");
 
     //curve divider color responsiveness
     const curveColor = lightMode ? "#F5F5E7" : "#080F08";
@@ -71,10 +69,10 @@ function Home({onNavigate}) {
         if (bottomActive) {return};
 
         setBottomActive(true);
-        setNoInteraction(true);
+        handleNoInteraction();
 
         setTimeout(() => {
-            setNoInteraction(false);
+            handleNoInteraction();
         }, 1500);
 
     };
@@ -84,10 +82,10 @@ function Home({onNavigate}) {
         if (!bottomActive) {return};
 
         setBottomActive(false);
-        setNoInteraction(true);
+        handleNoInteraction();
         
         setTimeout(() => {
-            setNoInteraction(false);
+            handleNoInteraction(false);
         }, 1500);
     
     };
@@ -164,11 +162,6 @@ function Home({onNavigate}) {
         setMessages(prev => [...prev, generatedMessage]);
 
     }
-    
-    //handle lightmode/darkmode
-    useEffect(() => {
-        document.body.classList.toggle('dark', !lightMode)
-    }, [lightMode]);
 
     //on initial page loading
     useEffect(() => {
@@ -192,45 +185,12 @@ function Home({onNavigate}) {
         });
     }, []);
 
-    //switch light dark mode
-    const switchViewMode = () => {
-        if (overlayTransition) {return}; //buffer
-
-        setNoInteraction(true);
-        setOverlayTransition(true);
-        setOverlayIconColor(lightMode ? "#ECFFD3" : "#190D21");
-        setOverlayBgColor(lightMode ? "#080F08" : "#FFFFFF");
-        setOverlayHalftoneColor(lightMode ? "#545B49" : "#8E5B67");
-        setOverlayDropshadow(lightMode ? "drop-shadow(0 0 5px rgba(180, 180, 180, 0.5))" : "drop-shadow(0 0 7px rgb(223, 165, 165))");
-
-        setTimeout(() => { //1 second before switching themes (full screen cover)
-            setLightMode(prev => !prev); 
-        }, 1325);
-
-        setTimeout(() => { //not clickable for another second after
-            setNoInteraction(false);
-            setOverlayTransition(false);
-            overlayIcon.current = lightMode ? "bi-sun-fill" : "bi-moon-fill";
-        }, 2650);
-
-    };
-
-
     return (
         <div className="mainContent">
 
             {/* no interaction transparent screen */}
             {noInteraction && (
                 <div className="noInteraction"></div>
-            )}
-
-            {/* transition screen */}
-            {overlayTransition && (
-                <div className="overlay" style={{backgroundColor:overlayBgColor, color:overlayHalftoneColor}}> 
-                    <div className="overlayIcon">
-                        <i className={`bi ${overlayIcon.current}`} style={{color: overlayIconColor, filter: overlayDropshadow}}></i>
-                    </div>
-                </div>
             )}
 
             {/* top bar nav thing */}
