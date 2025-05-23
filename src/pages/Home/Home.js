@@ -4,6 +4,7 @@ import './Home.css'
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faAngleDown, faHouse, faSun, faMoon} from '@fortawesome/free-solid-svg-icons';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 import logoLight from '../../assets/logo_light.png';
@@ -14,6 +15,7 @@ function Home() {
     //states
     const [lightMode, setLightMode] = useState(true);
     const [bottomActive, setBottomActive] = useState(false);
+    const [atBottom, setAtBottom] = useState(false);
     const [noInteraction, setNoInteraction] = useState(false);
     const [messages, setMessages] = useState([]);
     
@@ -24,7 +26,7 @@ function Home() {
     const [overlayHalftoneColor, setOverlayHalftoneColor] = useState("");
     const [overlayDropshadow, setOverlayDropshadow] = useState("");
     let darkCount = useRef(0);
-    let overlayIcon = useRef(faMoon);
+    let overlayIcon = useRef("bi-moon-fill");
 
     //curve divider color responsiveness
     const curveColor = lightMode ? "#F5F5E7" : "#080F08";
@@ -32,9 +34,9 @@ function Home() {
 
     //sliding methods for clarity
     const slideBottomUp = () => {
+        //if we alr at bottom       
+        if (bottomActive) {return};
 
-        //if already no interaction dont do anything
-        
         setBottomActive(true);
         setNoInteraction(true);
 
@@ -45,7 +47,8 @@ function Home() {
     };
 
     const slideBottomDown = () => {
-        //if already no interaction dont do anything
+        //if we alr at top
+        if (!bottomActive) {return};
 
         setBottomActive(false);
         setNoInteraction(true);
@@ -141,8 +144,12 @@ function Home() {
         const sections = [
             document.querySelector(".topMainText"),
             document.querySelector(".logoImageContainer"),
+            document.querySelector(".topNav"),
+            document.querySelector(".arrow"),
         ];
         
+
+        //first text part --> second text part --> logo --> top and right like line elements --> the scroll thing  
         //do a load in for each element
         sections.forEach((elem, index) => {
             elem.classList.add("enterAnim"); //add the class for elements that will be animated
@@ -161,7 +168,7 @@ function Home() {
         setOverlayIconColor(lightMode ? "#ECFFD3" : "#190D21");
         setOverlayBgColor(lightMode ? "#080F08" : "#FFFFFF");
         setOverlayHalftoneColor(lightMode ? "#EAFFC9" : "#8E5B67");
-        setOverlayDropshadow(lightMode ? "drop-shadow(0 0 5px rgba(180, 180, 180, 0.5))" : "drop-shadow(0 0 5px #190D21)");
+        setOverlayDropshadow(lightMode ? "drop-shadow(0 0 5px rgba(180, 180, 180, 0.5))" : "drop-shadow(0 0 7px rgb(223, 165, 165))");
 
         setTimeout(() => { //1 second before switching themes (full screen cover)
             setLightMode(prev => !prev); 
@@ -170,7 +177,7 @@ function Home() {
         setTimeout(() => { //not clickable for another second after
             setNoInteraction(false);
             setOverlayTransition(false);
-            overlayIcon.current = lightMode ? faSun : faMoon; 
+            overlayIcon.current = lightMode ? "bi-sun-fill" : "bi-moon-fill";
         }, 2650);
 
     };
@@ -188,7 +195,7 @@ function Home() {
             {overlayTransition && (
                 <div className="overlay" style={{backgroundColor:overlayBgColor, color:overlayHalftoneColor}}> 
                     <div className="overlayIcon">
-                        <FontAwesomeIcon icon={overlayIcon.current} style={{color: overlayIconColor, filter: overlayDropshadow}} />
+                        <i className={`bi ${overlayIcon.current}`} style={{color: overlayIconColor, filter: overlayDropshadow}}></i>
                     </div>
                 </div>
             )}
@@ -196,9 +203,9 @@ function Home() {
             {/* top bar nav thing */}
             <div className="topNav">
                 <div className="topLine"></div>
-                <div className="topMoon" onClick={switchViewMode}>
-                    <FontAwesomeIcon icon={lightMode ? faSun : faMoon} />
-                </div>
+                    <div className="topMoon" onClick={switchViewMode}>
+                        <i className={`bi ${lightMode ? "bi-sun" : "bi-moon"}`}></i>
+                    </div>
                 <div className="topLine"></div>
             </div>
 
@@ -298,8 +305,9 @@ function Home() {
                             <Link to = "/contact"><p>#3</p><h2>contact</h2></Link> 
                         </div>
 
+                        {/* add functionality */}
                         <div className="bottomDesc">
-                            <p>&lt;/fdsfdsfds&gt;</p>
+                            <p>&lt;/&gt;</p>
                         </div>
                     </div>
                 </div>

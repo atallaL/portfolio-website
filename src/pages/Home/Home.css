@@ -19,6 +19,7 @@ body, html {
 
 /* top nav bar section */
 .topNav {
+    opacity: 0;
     display: flex;
     position: fixed;
     width: 100%;
@@ -114,6 +115,7 @@ body, html {
     pointer-events: none;
     position:relative;
     border-radius:40%;
+    animation: slightFloat 4s ease-in-out infinite;
 }
 
 .logoImage {
@@ -210,6 +212,7 @@ body, html {
   }
 
 .arrow {
+    opacity:0;
     display:flex;
     position: absolute;
     top: 60px;
@@ -376,7 +379,7 @@ body, html {
     opacity: 0;
     top: -100px;
     left: calc(50vw - 50px);
-    font-size: 150px;
+    font-size: 120px;
     animation: drop 1.4s cubic-bezier(.51,.01,.49,.99) forwards 0.4s;
 }
 
@@ -441,6 +444,22 @@ body, html {
     }
 }
 
+@keyframes slightFloat {
+    0% {
+        transform: translateY(0);
+    }
+
+
+    50% {
+        transform: translateY(-3%)
+    }
+
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
 /* responsiveness */
 @media only screen and (max-width: 1200px) {
     .logoImage {
@@ -495,12 +514,25 @@ body, html {
         height:120%;
         display:flex;
         align-items:center;
+        justify-content:center;
+        flex-direction:column;
     }
 
     .bottomLinks {
+        position: relative;
         width: 100%;
         align-items: center;
         margin-left: 0;
+    }
+
+    .bottomDesc p{
+        font-size: 20px;
+    }
+
+    .bottomDesc {
+        position:fixed;
+        bottom: 0;
+        margin: 0 0 10px 0;
     }
 
     .bottomLinks p {
