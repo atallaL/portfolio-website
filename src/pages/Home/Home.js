@@ -1,16 +1,18 @@
 import React, {useRef, useEffect, useState} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import './Home.css'
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faAngleDown, faHouse, faSun, faMoon} from '@fortawesome/free-solid-svg-icons';
+import {faAngleDown} from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 import logoLight from '../../assets/logo_light.png';
 import logoDark from '../../assets/logo_dark.png';
 
-function Home() {
+function Home({onNavigate}) {
+
+    const navigate = useNavigate();
 
     //states
     const [lightMode, setLightMode] = useState(true);
@@ -30,7 +32,38 @@ function Home() {
 
     //curve divider color responsiveness
     const curveColor = lightMode ? "#F5F5E7" : "#080F08";
-    const curveShadowColor = lightMode ? "drop-shadow(0 -10px 5px rgba(56, 38, 84, 0.5))" : "drop-shadow(0 -10px 5px rgba(145, 175, 142, 0.3))";
+    const curveShadowColor = lightMode ? "drop-shadow(0 -3px 5px rgba(56, 38, 84, 0.5))" : "drop-shadow(0 -3px 5px rgba(145, 175, 142, 0.3))";
+
+    //typewriter effect at bottom thingy
+    const [bottomDescription, setBottomDescription] = useState("");
+    const intervalRef = useRef(null);
+
+    //thingy to make type effect
+    const typeEffect = (text) => {
+        let i = 0;
+
+        if(intervalRef){clearInterval(intervalRef.current)};
+        setBottomDescription("");
+
+        //every this interval of time, get another piece of the given text
+        intervalRef.current = setInterval(() => {
+
+            if (i < text.length) {
+                const char = text.charAt(i); //responsiveness fix
+                setBottomDescription((prev) => prev + char);
+                i++;  
+            } else {
+                clearInterval(intervalRef.current);
+            }
+        }, 70);
+    };
+
+    //clear the text helper function
+    const clearText = () => {
+        clearInterval(intervalRef.current);
+        setBottomDescription("");
+    };
+
 
     //sliding methods for clarity
     const slideBottomUp = () => {
@@ -167,7 +200,7 @@ function Home() {
         setOverlayTransition(true);
         setOverlayIconColor(lightMode ? "#ECFFD3" : "#190D21");
         setOverlayBgColor(lightMode ? "#080F08" : "#FFFFFF");
-        setOverlayHalftoneColor(lightMode ? "#EAFFC9" : "#8E5B67");
+        setOverlayHalftoneColor(lightMode ? "#545B49" : "#8E5B67");
         setOverlayDropshadow(lightMode ? "drop-shadow(0 0 5px rgba(180, 180, 180, 0.5))" : "drop-shadow(0 0 7px rgb(223, 165, 165))");
 
         setTimeout(() => { //1 second before switching themes (full screen cover)
@@ -300,14 +333,33 @@ function Home() {
                 <div className="bottomMain">
                     <div className="bottomLinkContainer">
                         <div className="bottomLinks">
-                            <Link to = "/about"><p>#1</p><h2>about</h2></Link> 
-                            <Link to = "/projects"><p>#2</p><h2>projects</h2></Link> 
-                            <Link to = "/contact"><p>#3</p><h2>contact</h2></Link> 
+                            {/* on hover, type the thingy out */}
+                            <button 
+                                onClick={() => onNavigate('/about')}
+                                onMouseEnter = {() => {clearText(); typeEffect("a little about me")}}
+                                onMouseLeave = {clearText}
+                            >
+                                <p>#1</p><h2>about</h2>
+                            </button> 
+                            <button 
+                                onClick={() => onNavigate('/projects')}
+                                onMouseEnter = {() => {clearText(); typeEffect("stuff i worked on")}}
+                                onMouseLeave = {clearText}
+                            >
+                                <p>#2</p><h2>projects</h2>
+                            </button> 
+                            <button 
+                                onClick={() => onNavigate('/contact')}
+                                onMouseEnter={() => {clearText(); typeEffect("i'd love to chat!")}}
+                                onMouseLeave={clearText}
+                            >
+                                <p>#3</p><h2>contact</h2>
+                            </button> 
                         </div>
 
                         {/* add functionality */}
                         <div className="bottomDesc">
-                            <p>&lt;/&gt;</p>
+                            <p>&lt;/{bottomDescription}<span className="typingIndicator">|</span>&gt;</p>
                         </div>
                     </div>
                 </div>

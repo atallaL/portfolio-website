@@ -1,7 +1,8 @@
-body {
+html body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
 }
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -13,7 +14,7 @@ code {
   --text: #190D21;
   --secondary: #F5F5E7;
   --line: #190D21;
-
+  --transitionbg: #8d7d96;
 }
 
 body.dark {
@@ -21,6 +22,6 @@ body.dark {
   --text: #ECFFD3;
   --secondary: #080F08;
   --line: #ECFFD3;
-
+  --transitionbg: rgb(23, 27, 23);
 }
 
