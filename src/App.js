@@ -9,10 +9,12 @@ import './App.css'
 import React, {useState} from 'react';
 import {BrowserRouter as Router, Routes, Route, useLocation, useNavigate} from 'react-router-dom';
 
+//components
+import TopNav from './components/Topbar';
+
 function App() {
 
   //states
-  const [target, setTarget] = useState(null);
   const [transition, setTransition] = useState(false);
 
   //variables
@@ -24,7 +26,6 @@ function App() {
     if (location.pathname === path) {return};
 
     setTransition(true);
-    setTarget(path);
 
     //go to spot after this amount of time
     setTimeout(() => {
@@ -34,7 +35,6 @@ function App() {
     //transition stops after this time
     setTimeout(() => {
       setTransition(false);
-      setTarget(null);
     }, 2000)
   }
   return (
@@ -44,6 +44,9 @@ function App() {
       {transition && (
         <div className="globalOverlay"></div>
       )}
+
+      {/* show topnav when we not on home page */}
+      {location.pathname !== '/' && <TopNav />}
 
       <div className = "App">
         <Routes>

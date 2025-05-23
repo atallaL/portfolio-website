@@ -1,0 +1,44 @@
+.globalTopNav {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    top: 20px;
+    align-items: center;
+    justify-content: center;
+    z-index:2;
+    margin-bottom: 40px;
+}
+
+.globalTopLine:first-child {
+    margin-left:40px; 
+}
+
+.globalTopLine:last-child {
+    margin-right:40px;
+}
+
+.globalTopLine {
+    display: flex;
+    flex-grow: 1;
+    height: 1px;
+    background-color: var(--line);
+    max-width: 200px;
+    margin: 0 20px;
+}
+
+.globalTopMoon {
+    display: flex;
+    align-items: center;
+    color: var(--text);
+    padding: 0 15px;
+    font-size: 30px;    
+    cursor: pointer;
+}
+
+.globalTopMenu {
+    position: fixed;
+    right: 25px;
+    color: var(--text);
+    font-size: 30px;
+    cursor: pointer;
+}

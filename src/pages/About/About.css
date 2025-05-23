@@ -3,6 +3,7 @@ html body{
 }
 
 .aboutMain {
+    padding-top: 105px;
     width:100%;
     display:flex;
     justify-content:center;
@@ -21,7 +22,7 @@ html body{
     color: var(--text);
     font-size:50px;
     font-weight:700;
-    margin:50px 0;
+    margin-bottom: 50px;
 }
 
 .firstSection p {
