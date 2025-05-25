@@ -58,13 +58,20 @@ function About() {
     const spinClockwise = () => {
         if (isAnimating) {return};
         setIsAnimating(true);
-        setPageStateOrder(([a, b, c]) => [b, c, a]);
+        setPageStateOrder(([a, b, c,]) => [b, c, a]);
         setTimeout(() => {
             setIsAnimating(false);
         }, 1000)
     };
 
-    const headerPositions = ['aboutLeftHeader', 'aboutMainHeader', 'aboutRightHeader'];
+    //get class based on index, add an animating class 
+    const applyClass = (i) => {
+        const animatingClass = isAnimating ? ' transitioning' : '';
+        
+        if (i === 0) {return 'aboutSectionHeader aboutLeftHeader' + animatingClass}
+        else if (i === 1) {return 'aboutSectionHeader aboutMainHeader' + animatingClass};
+        return 'aboutSectionHeader aboutRightHeader' + animatingClass;
+    };
 
     return (
         <div className="aboutMain">
@@ -73,21 +80,19 @@ function About() {
                 {/* circular thingy */}
                 <div className="sectionHeaderContainer">
                     {/* iterating through order and using indexes to render circle thingy */}
-                    {headerPositions.map((position, index) => {
-                        return(
-                            <div
-                                key={position}
-                                className={`aboutSectionHeader ${position}${isAnimating ? ' transitioning' : ''}`}
-                                onClick={() => {
-                                    if (isAnimating) {return};
-                                    if (index===0) {spinCounterClockwise()}
-                                    else if (index===2) {spinClockwise()};
-                                }}    
-                            >
-                                {pageSections[pageStateOrder[index]].headerContent}
-                            </div>
-                        );
-                    })}
+                    {pageStateOrder.map((section, index) => (
+                        <div
+                            key={section}
+                            className={applyClass(index)}
+                            onClick={() => {
+                                if (isAnimating) {return};
+                                if (index===0) {spinCounterClockwise()}
+                                else if (index===2) {spinClockwise()};
+                            }}    
+                        >
+                            {pageSections[section].headerContent}
+                        </div>
+                    ))}
                 </div>
             <div className="sectionContent">
                 {/* render center guy content */}
