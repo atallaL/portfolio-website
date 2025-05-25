@@ -1,0 +1,135 @@
+.projectMain {
+    height:100vh;
+    width:100vw;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.projectGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 40px;
+    align-items: stretch; 
+    justify-content: space-between;
+    width:80vw;
+    height: 75vh;
+    max-width: 1000px;
+    max-height:600px;
+    margin: 40px 0;
+}
+
+.projectCard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text);
+    text-align: center;
+    border-radius: 50px;
+    background-color: var(--projbg);
+    height: 100%;
+    opacity: 0.6;
+    box-shadow: 0 6px 18px var(--projboxshadow);
+    transform: scale(1);
+    transform-origin: center;
+    transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.8s ease;
+}
+
+.projectCard h2 {
+    margin-top: 40px;
+    padding: 0 10px;
+    font-weight:600;
+    font-size: 25px;
+}
+
+.projectCard i {
+    border-radius: 50%;
+    background-color: var(--secondary);
+    box-shadow: 1px 4px 5px var(--projboxshadow);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position: fixed;
+    bottom: -5px;
+    right:-8px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    font-weight:600;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+
+
+/* if a box is being hovered, do this to rest of boxes*/
+.projectGrid:has(.projectCard:hover) .projectCard {
+    transform: scale(0.98);
+    box-shadow: 0 6px 12px var(--projboxshadow);
+}
+
+.projectCard:hover {
+    transform: scale(1.05) !important;
+    opacity: 100% !important;
+    box-shadow: 0 12px 25px var(--projboxshadow) !important;
+}
+
+.projectCard:hover i {
+    animation: projSlightFloat 3s ease-in-out infinite;
+}
+
+@keyframes projSlightFloat {
+    0% {
+        transform: translateY(0);
+    }
+
+
+    50% {
+        transform: translateY(-15%);
+    }
+
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* responsiveness */
+
+/* 1049px width is when grid goes from 2x2 to 1x4*/
+@media only screen and (max-width: 1049px) {
+    .projectCard h2 {
+        margin-top: 10px;
+        font-size: 20px;
+    }
+    .projectCard p {
+        font-size: 12px;
+    }
+    .projectGrid {
+        gap: 30px;
+        grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    }
+}
+
+    @media only screen and (max-width: 500px) {
+    .projectCard h2 {
+        margin-top: 10px;
+        font-size: 15px;
+    }
+    .projectCard p {
+        font-size: 8px;
+    }
+    .projectGrid {
+        margin: 0 10px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .projectCard i {
+        bottom: -3px;
+        right: -4px;
+        width: 30px;
+        height: 30px;
+        font-size: 15px;
+    }
+}

@@ -203,7 +203,6 @@ function Home({
         const sections = [
             document.querySelector(".topMainText"),
             document.querySelector(".logoImageContainer"),
-            document.querySelector(".globalTopNav"),
             document.querySelector(".arrow"),
         ];
         
@@ -304,7 +303,7 @@ function Home({
                             {/* on hover, type the thingy out */}
                             <button 
                                 onClick={() => slideBottomDown()}
-                                onMouseEnter = {() => {clearText(); typeEffect("wanna go back up?")}}
+                                onMouseEnter = {() => {clearText(); typeEffect("cozy!")}}
                                 onMouseLeave = {clearText}
                             >
                                 <p>#0</p><h2>home</h2>

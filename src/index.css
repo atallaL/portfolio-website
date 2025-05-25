@@ -15,6 +15,8 @@ code {
   --secondary: #F5F5E7;
   --line: #190D21;
   --transitionbg: #8d7d96;
+  --projboxshadow: rgba(33, 31, 37, 0.5);
+  --projbg: rgba(255, 255, 255, 0.1);
 }
 
 body.dark {
@@ -23,5 +25,7 @@ body.dark {
   --secondary: #080F08;
   --line: #ECFFD3;
   --transitionbg: rgb(23, 27, 23);
+  --projboxshadow: rgba(0, 0, 0, 0.4);
+  --projbg: rgba(0, 0, 0, 0.1);
 }
 

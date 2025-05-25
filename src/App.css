@@ -154,8 +154,8 @@
 
 .menuOverlayCircle {
     position: fixed;
-    top: -100px;
-    right: -100px;
+    top: -8px;
+    right: -10px;
     width: 100px;
     height: 100px;
     background-color: var(--secondary);
