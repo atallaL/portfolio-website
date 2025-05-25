@@ -68,3 +68,37 @@
     }
 }
 
+/* responsiveness */
+@media only screen and (max-width: 1200px) {
+    .globalTopNav{
+        top:15px;
+    }
+
+    .globalTopMenu, .globalTopMoon {
+        font-size: 27px;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .globalTopMenu, .globalTopMoon {
+        font-size: 24px;
+    }
+
+    .globalTopMenu {
+        right: 25px;
+    }
+}
+
+@media only screen and (max-width: 786px){
+    .globalTopNav{
+        top:10px;
+    }
+    
+    .globalTopMenu, .globalTopMoon {
+        font-size: 20px;
+    }
+
+    .globalTopMenu {
+        right: 15px;
+    }
+}

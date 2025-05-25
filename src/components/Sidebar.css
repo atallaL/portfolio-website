@@ -119,8 +119,33 @@
     }
 }
 
-/* responsive */
-@media only screen and (max-width: 768px) {
+/* responsiveness */
+
+@media only screen and (max-width: 992px) {
+    .sideLogos i {
+        font-size: 22px;
+    }
+    
+    .sideLogos {
+        margin-top: 2px;
+    }
+
+    .globalSideNav{
+        bottom: 17px;
+        right: 20px;
+    }
+}
+
+@media only screen and (max-width: 786px){
+    .globalSideNav{
+        bottom: 8px;
+        right: 10px;
+    }
+    
+    .sideLogos i {
+        font-size: 18px;
+    }
+
     .sideVertLine {
         height:50px !important;
         transition: height 1.1s ease 0.25s;
@@ -129,5 +154,4 @@
     .sideVertLine.active {
         height:160px !important;
     }
-
 }
