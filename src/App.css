@@ -20,7 +20,7 @@
     background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 20h20M28 12L35 20L28 28' stroke='%23ffffff' stroke-linecap='round' stroke-width='5' fill='none'/%3E%3C/svg%3E");
     background-size: 180px 150px;
     opacity: 0.05; 
-    animation: globalHalftoneAnim 1.3s ease-in forwards;
+    animation: globalHalftoneAnim 1.9s ease-in forwards;
 }
 
 @keyframes globalOverlayCover {
@@ -53,6 +53,7 @@
 
 /* mode transition animation */
 .overlay {
+    z-index:5000;
     position: fixed;
     height: 100vh;
     width: 0;
@@ -144,3 +145,133 @@
     background-color: transparent;
     pointer-events: all;
 }
+
+/* expanding and shrinking menu overlay */
+
+.menuOverlay{
+    position:relative;
+}
+
+.menuOverlayCircle {
+    position: fixed;
+    top: -100px;
+    right: -100px;
+    width: 100px;
+    height: 100px;
+    background-color: var(--secondary);
+    border-radius: 50%;
+    z-index: 3;
+    transform: scale(0);
+    transition: transform 1s ease;
+}
+
+.menuOverlay.active .menuOverlayCircle {
+  transform: scale(50);
+}
+
+.menuOverlayLinkContainer {
+    position: fixed;
+    height:100%;
+    display:flex;
+    flex-direction:row;
+    align-items:end;
+    justify-content:space-between;
+    z-index:5;
+}
+
+.menuOverlayLinks {
+    display:flex;
+    flex-direction:column;
+    margin: 0 0 40px 30px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition-delay: 0.6s;
+    pointer-events:none;
+    visibility: hidden;
+    position: absolute;
+}
+
+.menuOverlay.active .menuOverlayLinks {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events:auto;
+    visibility: visible;
+    position: static;
+}
+
+.menuOverlayLinks p {
+    color: var(--text);
+    margin: 0;
+    font-size: 15px;
+    font-weight:600;
+    margin-bottom:11px;
+    
+}
+
+.menuOverlayLinks h2 {
+    color: var(--text);
+    margin: 0;
+    font-size: 85px;
+    font-weight:10;
+}
+
+.menuOverlayLinks button {
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    opacity:85%;
+    transform-origin: left center;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* if there is a link being hovered, make the rest of the links do this */
+.menuOverlayLinks:has(button:hover) button {
+    opacity: 0.5;
+    transform: scale(0.95);
+}
+
+/* the one actually being hovered needs to overwrite this */
+.menuOverlayLinks button:hover{
+    opacity:100% !important;
+    transform: scale(1.1) !important;
+}
+
+
+@media only screen and (max-width: 992px) {
+    .menuOverlayLinks p {
+        font-size: 10px;
+    }
+    
+    .menuOverlayLinks h2 {
+        font-size: 70px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+
+
+
+    .menuOverlay.active .menuOverlayLinks {
+        position: relative;
+        width: 100%;
+        margin: 5px 5px;
+    }
+
+
+    .menuOverlayLinks p {
+        font-size: 8px;
+    }
+    
+    .menuOverlayLinks h2 {
+        font-size: 50px;
+    }
+
+    .menuOverlayLinks button {
+        transform-origin: center;
+    }  
+}
+

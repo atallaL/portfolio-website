@@ -58,7 +58,6 @@ function Home({
         setBottomDescription("");
     };
 
-
     //sliding methods for clarity
     const slideBottomUp = () => {
         //if we alr at bottom       
@@ -194,7 +193,7 @@ function Home({
             sideNav.classList.remove("active");
             sideLinks.classList.remove("active");
             sideLine.classList.remove("active");
-        }, 800)
+        }, 1000)
     }
 
     //on initial page loading

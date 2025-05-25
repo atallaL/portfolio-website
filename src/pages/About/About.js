@@ -48,20 +48,13 @@ function About() {
     //handle page state transitions
     const spinCounterClockwise = () => {
         if (isAnimating) {return};
-        setIsAnimating(true);
         setPageStateOrder(([a, b, c]) => [c, a, b]);
-               setTimeout(() => {
-            setIsAnimating(false);
-        }, 1000)
+
     };
 
     const spinClockwise = () => {
         if (isAnimating) {return};
-        setIsAnimating(true);
-        setPageStateOrder(([a, b, c,]) => [b, c, a]);
-        setTimeout(() => {
-            setIsAnimating(false);
-        }, 1000)
+        setPageStateOrder(([a, b, c]) => [b, c, a]);
     };
 
     //get class based on index, add an animating class 

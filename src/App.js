@@ -34,6 +34,8 @@ function App() {
   const navigate = useNavigate();
 
   const menuClickedMethodRef = useRef(null);
+  const [menuOverlay, setMenuOverlay] = useState(false);
+  const [menuOverlayClosing, setMenuOverlayClosing] = useState(false);
 
   //mode handling
   const switchViewMode = () => {
@@ -69,6 +71,13 @@ function App() {
   const handlePageTransition = (path) => {
     if (location.pathname === path) {return};
 
+    //delay this a bit so its not seen before the transition happens
+    if (menuOverlay) {
+      setTimeout(() => {
+        setMenuOverlay(false);
+      },300);
+    };
+
     setTransition(true);
 
     //go to spot after this amount of time
@@ -89,12 +98,20 @@ function App() {
       //use method callback from home
       menuClickedMethodRef.current();
     } else {
-      //add logic for thingy
+      //put menu overlay on screen
+
+      if (noInteraction) {return};
+      
+      setNoInteraction(true);
+      setMenuOverlay(prev => !prev);
+
+      setTimeout(() => {
+        setNoInteraction(false);
+      }, 1000);
 
     }
 
   };
-
   return (
     <>
       {/* no interaction transparent screen */}
@@ -115,6 +132,43 @@ function App() {
             </div>
         </div>
       )}
+
+      {/* menu overlay */}
+
+      {location.pathname !== '/' && ( 
+        <div className={`menuOverlay ${menuOverlay ? "active" : ""}`}> 
+          <div className="menuOverlayCircle"></div>
+          <div className="menuOverlayCenterer">
+            <div className="menuOverlayLinkContainer">
+              <div className="menuOverlayLinks">
+                  {/* on hover, type the thingy out */}
+                  <button 
+                      onClick={() => {handlePageTransition('/')}}
+                  >
+                      <p>#0</p><h2>home</h2>
+                  </button> 
+                  <button 
+                      onClick={() => {handlePageTransition('/about')}}
+                  >
+                      <p>#1</p><h2>about</h2>
+                  </button> 
+                  <button 
+                      onClick={() => {handlePageTransition('/projects')}}
+                  >
+                      <p>#2</p><h2>projects</h2>
+                  </button> 
+                  <button 
+                      onClick={() => {handlePageTransition('/contact')}}
+                  >
+                      <p>#3</p><h2>contact</h2>
+                  </button> 
+                </div>
+              </div>
+            </div>
+        </div>
+        )}
+        
+        
 
       {/* show sidenav when we not on home page and topnav*/}
       <TopNav lightMode={lightMode} switchViewMode={switchViewMode} onMenuClick={handleMenuClick}/>

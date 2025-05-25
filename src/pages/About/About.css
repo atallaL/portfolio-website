@@ -39,7 +39,7 @@ html body{
     justify-content: center;
     align-items: center;
     position: relative;
-    height: 200px;
+    height: 170px;
 }
 
 .aboutSectionHeader {
@@ -48,8 +48,9 @@ html body{
     justify-content:center;
     position: absolute;
     cursor: pointer;
-    transition: transform 2s ease;
+    opacity: 1;
     transform: translateX(0) translateY(0) scale(1);
+    transform-origin: center;
 }
 
 .transitioning {
@@ -58,22 +59,134 @@ html body{
 
 .aboutLeftHeader {
     transform: translateX(-200px) translateY(-50px);
-    opacity:0.6;
+    transform-origin: center;
+    transition: transform 0.5s ease;
+    opacity:0.5;
 }
+
+.aboutLeftHeader:hover {
+    transform: scale(1.05) translateX(-200px) translateY(-50px);
+    transform-origin: center;
+}
+
 
 .aboutMainHeader {
     transform: translateY(20px) scale(1.2);
+        transition: transform 0.5s ease;
 }
 
 .aboutRightHeader {
     transform: translateX(200px) translateY(-50px);
-    opacity:0.6;
+    transform-origin: center;
+    transition: transform 0.5s ease;
+    opacity:0.5;
+}
+
+.aboutRightHeader:hover {
+    transform: scale(1.05) translateX(200px) translateY(-50px);
+    transform-origin: center;
 }
 
 .aboutLeftHeader h2, .aboutRightHeader h2 {
-    font-size:30px;
+    font-size:25px;
 }
 
 .aboutMainHeader h2 {
-    font-size: 50px;
+    font-size: 40px;
+    white-space: nowrap;
+}
+
+
+/* responsiveness */
+@media only screen and (max-width: 1200px) {
+
+    .aboutLeftHeader h2, .aboutRightHeader h2 {
+        font-size:25px;
+    }
+
+    .aboutMainHeader h2 {
+        font-size: 40px;
+    }
+
+    .sectionHeaderContainer {
+        height: 150px;
+    }
+
+    .aboutSection p, .aboutSection li{
+        font-size:14px;
+    }
+
+}
+
+
+@media only screen and (max-width: 768px) {
+
+    .aboutLeftHeader h2, .aboutRightHeader h2 {
+        font-size:20px;
+    }
+
+    .aboutMainHeader h2 {
+        font-size: 30px;
+    }
+
+    .aboutSection p, .aboutSection li{
+        font-size:12px;
+    }
+
+    .aboutSection {
+        width:75vw;
+    }
+
+    .aboutRightHeader {
+        transform: translateX(140px) translateY(-30px);
+    }
+
+    .aboutRightHeader:hover {
+        transform: scale(1.05) translateX(140px) translateY(-30px);
+    }
+
+    .aboutLeftHeader {
+        transform: translateX(-140px) translateY(-30px);
+    }
+
+    .aboutLeftHeader:hover {
+        transform: scale(1.05) translateX(-140px) translateY(-30px);
+    }
+
+}
+
+@media only screen and (max-width: 450px) {
+
+    .aboutLeftHeader h2, .aboutRightHeader h2 {
+        font-size:15px;
+    }
+
+    .aboutMainHeader h2 {
+        font-size: 25px;
+    }
+
+    .aboutSection p, .aboutSection li{
+        font-size:10px;
+    }
+
+    .aboutSection {
+        width:75vw;
+    }
+
+    .aboutRightHeader {
+        transform: translateX(110px) translateY(-30px);
+    }
+
+    .aboutRightHeader:hover {
+        transform: scale(1.05) translateX(110px) translateY(-30px);
+    }
+
+    .aboutLeftHeader {
+        transform: translateX(-110px) translateY(-30px);
+    }
+
+    .aboutLeftHeader:hover {
+        transform: scale(1.05) translateX(-110px) translateY(-30px);
+    }
+
 }
