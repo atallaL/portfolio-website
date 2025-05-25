@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
 import React, {useState, useEffect, useRef} from 'react';
-import {BrowserRouter as Router, Routes, Route, useLocation, useNavigate} from 'react-router-dom';
+import {HashRouter as Router, Routes, Route, useLocation, useNavigate} from 'react-router-dom';
 
 //components
 import TopNav from './components/Topbar';

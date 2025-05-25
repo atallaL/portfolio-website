@@ -152,17 +152,21 @@ html body{
     .aboutLeftHeader:hover {
         transform: scale(1.05) translateX(-140px) translateY(-30px);
     }
-
+    
 }
 
 @media only screen and (max-width: 450px) {
+
+    .aboutMain {
+        padding-top: 45px;
+    }
 
     .aboutLeftHeader h2, .aboutRightHeader h2 {
         font-size:15px;
     }
 
     .aboutMainHeader h2 {
-        font-size: 25px;
+        font-size: 23px;
     }
 
     .aboutSection p, .aboutSection li{
@@ -174,19 +178,19 @@ html body{
     }
 
     .aboutRightHeader {
-        transform: translateX(110px) translateY(-30px);
+        transform: translateX(75px) translateY(-20px);
     }
 
     .aboutRightHeader:hover {
-        transform: scale(1.05) translateX(110px) translateY(-30px);
+        transform: scale(1.05) translateX(70px) translateY(-20px);
     }
 
     .aboutLeftHeader {
-        transform: translateX(-110px) translateY(-30px);
+        transform: translateX(-75px) translateY(-20px);
     }
 
     .aboutLeftHeader:hover {
-        transform: scale(1.05) translateX(-110px) translateY(-30px);
+        transform: scale(1.05) translateX(-70px) translateY(-20px);
     }
 
 }
