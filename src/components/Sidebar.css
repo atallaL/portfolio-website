@@ -1,0 +1,126 @@
+.globalSideNav{
+    display:flex;
+    position: fixed;
+    bottom: 20px;
+    right: 25px;
+    z-index:5;
+    transition: transform 1.5s ease 0.15s, opacity 0.7s ease 1.2s;
+    transform: translateY(0);
+}
+
+.globalSideNavLinks {
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    height:100%;
+    transition: transform 0.8s ease;
+    transform-origin: bottom center;
+    will-change: transform;
+}
+
+.globalSideNavLinks:hover {
+    transform: scale(1.05);
+}
+
+.globalSideNavLinks.active{
+    transform-origin: top center;
+}
+
+.globalSideNavLinks .sideVertLine {
+    display: flex;
+    flex-grow: 1;
+    width: 1px;
+    background-color: var(--line);
+    height: 300px;
+    margin: 10px;
+    transition: height 1.4s ease 0.45s;
+}
+
+.sideVertLine.active {
+    height:160px;
+}
+
+.sideEnvelopeContainer{
+    position:relative;
+}
+
+.sideLogos {
+    color: var(--text);
+    margin-top: 5px;
+    transition: transform 0.5s ease;
+    transform-origin: center;
+    will-change: transform;
+}
+
+.sideLogos:hover{
+    transform: scale(1.15);
+}
+
+.sideLogos a {
+    color: var(--text);
+}
+
+
+.sideLogos i {
+    font-size: 25px;
+    cursor: pointer;
+    will-change: transform;
+}
+
+/* email alert thingy */
+.emailAlert {
+    opacity: 0;
+    position: absolute;
+    right:30%;
+    top: -4px;
+    color: var(--text);
+    font-size: 15px;
+    white-space: nowrap;
+    transform: rotate(0) scale(0.9);
+    animation: popInOnClick 1s ease;
+    z-index: -20;
+    pointer-events: none;
+    user-select: none;
+}
+
+.globalSideNav.active{
+    transform: translateY(calc(-100vh + 350px));
+    opacity: 85%;
+}
+
+.sideVertLine.active {
+    height:160px;
+}
+
+/* animation to make the little thingy pop out from the email */
+@keyframes popInOnClick {
+    0% {
+        opacity: 0;
+        transform: translateY(0) translateX(0) scale(0.9); 
+    }
+    40% {
+        opacity: 1;
+    }
+
+    70% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-40%) translateX(-40%) rotate(-10deg) scale(1);
+    }
+}
+
+/* responsive */
+@media only screen and (max-width: 768px) {
+    .sideVertLine {
+        height:50px !important;
+        transition: height 1.1s ease 0.25s;
+    }
+
+    .sideVertLine.active {
+        height:160px !important;
+    }
+
+}

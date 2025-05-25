@@ -9,7 +9,7 @@
     display: flex;
     justify-content: center;
     overflow: hidden;
-    animation: globalOverlayCover 0.8s ease forwards, globalOverlayUncover 1s ease forwards 1s;
+    animation: globalOverlayCover 0.8s cubic-bezier(.13,.04,.39,.79) forwards, globalOverlayUncover 1s ease forwards 1s;
     font-size: 20px;
 }
 
@@ -17,10 +17,10 @@
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 20h20M25 15l5 5-5 5' stroke='%23ffffff' stroke-width='7' fill='none'/%3E%3C/svg%3E");
-    background-size: 120px 120px;
+    background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 20h20M28 12L35 20L28 28' stroke='%23ffffff' stroke-linecap='round' stroke-width='5' fill='none'/%3E%3C/svg%3E");
+    background-size: 180px 150px;
     opacity: 0.05; 
-    animation: globalHalftoneAnim 5s linear infinite;
+    animation: globalHalftoneAnim 1.3s ease-in forwards;
 }
 
 @keyframes globalOverlayCover {
@@ -45,8 +45,9 @@
     0% {
         background-position: 0 0;
     }
+
     100% {
-        background-position: 300px 0;
+        background-position: 1500px 0;
     }
 }
 

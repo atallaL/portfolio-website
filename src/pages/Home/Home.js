@@ -1,11 +1,8 @@
 import React, {useRef, useEffect, useState} from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import './Home.css'
 
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faAngleDown} from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 import logoLight from '../../assets/logo_light.png';
 import logoDark from '../../assets/logo_dark.png';
@@ -13,16 +10,15 @@ import logoDark from '../../assets/logo_dark.png';
 function Home({
     onNavigate,
     lightMode,
-    switchViewMode,
     noInteraction,
     handleNoInteraction,
+    menuClickedMethodRef,
 }) {
 
     const navigate = useNavigate();
 
     //states
     const [bottomActive, setBottomActive] = useState(false);
-    const [atBottom, setAtBottom] = useState(false);
     const [messages, setMessages] = useState([]);
     
     //transition states and var
@@ -68,18 +64,33 @@ function Home({
         //if we alr at bottom       
         if (bottomActive) {return};
 
+        //add active thingy to things
+        const sideNav = document.querySelector(".globalSideNav");
+        const sideLinks = document.querySelector(".globalSideNavLinks");
+        const sideLine = document.querySelector(".sideVertLine");
+        sideNav.classList.add("active");
+        sideLinks.classList.add("active");
+        sideLine.classList.add("active");
+
         setBottomActive(true);
         handleNoInteraction();
 
         setTimeout(() => {
             handleNoInteraction();
         }, 1500);
-
     };
 
     const slideBottomDown = () => {
         //if we alr at top
         if (!bottomActive) {return};
+
+        //remove active thingy to things
+        const sideNav = document.querySelector(".globalSideNav");
+        const sideLinks = document.querySelector(".globalSideNavLinks");
+        const sideLine = document.querySelector(".sideVertLine");
+        sideNav.classList.remove("active");
+        sideLinks.classList.remove("active");
+        sideLine.classList.remove("active");
 
         setBottomActive(false);
         handleNoInteraction();
@@ -89,6 +100,15 @@ function Home({
         }, 1500);
     
     };
+
+    //for home, make menu button slide down thingy
+    useEffect(() => {
+        //menu scroll send callback method
+        if (menuClickedMethodRef) {
+            menuClickedMethodRef.current = () => {slideBottomUp()};
+        }
+
+    }, [menuClickedMethodRef]);
 
     //messages for when logo is clicked
     const possibleMessages = lightMode ? ["hello!", 'hi!', 'hey!'] : ["zz", "zzz", "zzzzzz"]
@@ -163,6 +183,20 @@ function Home({
 
     }
 
+    const switchPage = (page) => {
+        onNavigate(page);
+
+        //remove active from sidenav stuff
+        setTimeout(() => {
+            const sideNav = document.querySelector(".globalSideNav");
+            const sideLinks = document.querySelector(".globalSideNavLinks");
+            const sideLine = document.querySelector(".sideVertLine");
+            sideNav.classList.remove("active");
+            sideLinks.classList.remove("active");
+            sideLine.classList.remove("active");
+        }, 800)
+    }
+
     //on initial page loading
     useEffect(() => {
 
@@ -170,7 +204,7 @@ function Home({
         const sections = [
             document.querySelector(".topMainText"),
             document.querySelector(".logoImageContainer"),
-            document.querySelector(".topNav"),
+            document.querySelector(".globalTopNav"),
             document.querySelector(".arrow"),
         ];
         
@@ -192,15 +226,6 @@ function Home({
             {noInteraction && (
                 <div className="noInteraction"></div>
             )}
-
-            {/* top bar nav thing */}
-            <div className="topNav">
-                <div className="topLine"></div>
-                    <div className="topMoon" onClick={switchViewMode}>
-                        <i className={`bi ${lightMode ? "bi-sun" : "bi-moon"}`}></i>
-                    </div>
-                <div className="topLine"></div>
-            </div>
 
 
             <div className="topMain">
@@ -244,22 +269,6 @@ function Home({
                 </div>
             </div>
 
-            {/* bottom right nav */}
-            <div className={`socialNavContainer ${bottomActive ? 'active' : ''}`}>
-                <div className="socialLinks">
-                    <div className={`vertLine ${bottomActive ? 'active' : ''}`}></div>
-                    <div className="socialLinkedin">
-                        <a href="https://www.linkedin.com/in/leonardo-atalla-2a2aa6296/">
-                            <FontAwesomeIcon icon={faLinkedin} />
-                        </a>
-                    </div>
-                    <div className="socialGit">
-                        <a href="https://github.com/atallaL/portfolio-website">
-                            <FontAwesomeIcon icon={faGithub} />
-                        </a>
-                    </div>
-                </div>
-            </div>
             {/* for the slide up animation */}
             <div className={`slide ${bottomActive ? 'active' : ''}`}>
 
@@ -286,7 +295,7 @@ function Home({
                         <p>scroll!</p>
                     </div>
                     <div className="arrowSymbol" onClick={slideBottomUp}>
-                        <FontAwesomeIcon icon={faAngleDown} size="2x" />
+                        <i class="bi bi-chevron-down"></i>
                     </div>
                 </div>
 
@@ -295,21 +304,28 @@ function Home({
                         <div className="bottomLinks">
                             {/* on hover, type the thingy out */}
                             <button 
-                                onClick={() => onNavigate('/about')}
+                                onClick={() => slideBottomDown()}
+                                onMouseEnter = {() => {clearText(); typeEffect("wanna go back up?")}}
+                                onMouseLeave = {clearText}
+                            >
+                                <p>#0</p><h2>home</h2>
+                            </button> 
+                            <button 
+                                onClick={() => switchPage('/about')}
                                 onMouseEnter = {() => {clearText(); typeEffect("a little about me")}}
                                 onMouseLeave = {clearText}
                             >
                                 <p>#1</p><h2>about</h2>
                             </button> 
                             <button 
-                                onClick={() => onNavigate('/projects')}
+                                onClick={() => switchPage('/projects')}
                                 onMouseEnter = {() => {clearText(); typeEffect("stuff i worked on")}}
                                 onMouseLeave = {clearText}
                             >
                                 <p>#2</p><h2>projects</h2>
                             </button> 
                             <button 
-                                onClick={() => onNavigate('/contact')}
+                                onClick={() => switchPage('/contact')}
                                 onMouseEnter={() => {clearText(); typeEffect("i'd love to chat!")}}
                                 onMouseLeave={clearText}
                             >

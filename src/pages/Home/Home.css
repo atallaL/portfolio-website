@@ -45,7 +45,34 @@ body, html {
     color: var(--text);
     padding: 0 15px;
     font-size: 30px;    
+    animation: moonSlightFloat 6s ease-in-out infinite; 
+}
+
+.topMoon i{
     cursor: pointer;
+    transition: transform 0.3s ease-out;
+    transform-origin:center;
+    will-change: transform;
+}
+
+.topMoon i:hover{
+    transform: scale(1.1);
+}
+
+@keyframes moonSlightFloat {
+    0% {
+        transform: translateY(-5%);
+    }
+
+
+    50% {
+        transform: translateY(5%)
+    }
+
+
+    100% {
+        transform: translateY(-5%);
+    }
 }
 
 /* top screen content */
@@ -137,51 +164,6 @@ body, html {
     100%{ transform: scale(1.05); } 
 }
 
-.socialNavContainer{
-    display:flex;
-    position: fixed;
-    bottom: 20px;
-    right: 25px;
-    z-index:5;
-    transition: transform 1.5s ease 0.25s, opacity 0.7s ease 1.2s;
-    transform: translateY(0);
-}
-
-.socialNavContainer.active{
-    transform: translateY(calc(-100vh + 350px));
-    opacity: 75%;
-}
-
-.socialLinks {
-    display: flex;
-    flex-direction:column;
-    align-items:center;
-    height:100%;
-}
-
-.socialLinks .vertLine {
-    display: flex;
-    flex-grow: 1;
-    width: 1px;
-    background-color: var(--line);
-    height: 300px;
-    margin: 10px;
-    transition: height 1.4s ease 0.45s;
-}
-
-.vertLine.active {
-    height:200px;
-}
-
-.socialGit, .socialLinkedin {
-    font-size: 30px;
-}
-
-
-.socialLinks a {
-    color: var(--text);
-}
-
 /* bottom curve thing */
 .curveDivider {
     position: relative;
@@ -219,7 +201,10 @@ body, html {
 
 .arrowSymbol {
     cursor: pointer;
+    margin-top: 7px;
+    transform: scale(1.6);
 }
+
 /* slide animation */
 .slide {
     position: fixed;
@@ -293,7 +278,7 @@ body, html {
 .bottomLinks h2 {
     color: var(--text);
     margin: 0;
-    font-size: 90px;
+    font-size: 85px;
     font-weight:10;
 }
 
@@ -460,24 +445,15 @@ body, html {
     }
 
     .bottomLinks p {
-        font-size: 10px;
+        font-size: 8px;
     }
     
     .bottomLinks h2 {
-        font-size: 70px;
+        font-size: 50px;
     }
 
     .bottomLinks button {
         transform-origin: center;
-    }
-
-    .vertLine {
-        height:50px !important;
-        transition: height 1.1s ease 0.25s;
-    }
-
-    .vertLine.active {
-        height:200px !important;
     }
 
     .floatingMessage {

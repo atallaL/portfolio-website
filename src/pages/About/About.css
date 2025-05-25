@@ -3,14 +3,15 @@ html body{
 }
 
 .aboutMain {
-    padding-top: 105px;
+    padding: 105px 60px 0;
     width:100%;
     display:flex;
+    flex-direction: row;
     justify-content:center;
     align-items:center;
 }
 
-.firstSection {
+.aboutSection {
     width:50vw;
     display: flex;
     flex-direction: column;
@@ -18,19 +19,61 @@ html body{
     align-items:left;
 }
 
-.firstSection h2 {
+
+.aboutSection h2 {
     color: var(--text);
-    font-size:50px;
     font-weight:700;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-.firstSection p {
+.aboutSection p, .aboutSection li{
     color: var(--text);
     font-size:16px;
     font-weight:100;
 }
 
-.strong {
-    color: var(--secondary);
+/* circular thingy */
+.sectionHeaderContainer {
+    display:flex; 
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 200px;
+}
+
+.aboutSectionHeader {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position: absolute;
+    cursor: pointer;
+    transition: transform 2s ease;
+    transform: translateX(0) translateY(0) scale(1);
+}
+
+.transitioning {
+    pointer-events: none;
+}
+
+.aboutLeftHeader {
+    transform: translateX(-200px) translateY(-50px);
+    opacity:0.6;
+}
+
+.aboutMainHeader {
+    transform: translateY(20px) scale(1.2);
+}
+
+.aboutRightHeader {
+    transform: translateX(200px) translateY(-50px);
+    opacity:0.6;
+}
+
+.aboutLeftHeader h2, .aboutRightHeader h2 {
+    font-size:30px;
+}
+
+.aboutMainHeader h2 {
+    font-size: 50px;
 }

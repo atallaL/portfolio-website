@@ -1,12 +1,10 @@
 //top bar for all pages but home bc home doesnt need the little menu ico
 
 import React from 'react';
-import {useNavigate} from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './Topbar.css'
 
-const Topbar = ({lightMode, switchViewMode}) => {
-  const navigate = useNavigate();
+const Topbar = ({lightMode, switchViewMode, onMenuClick}) => {
 
   return (
     <div className="globalTopNav">
@@ -16,7 +14,7 @@ const Topbar = ({lightMode, switchViewMode}) => {
             </div>
         <div className="globalTopLine"></div>
 
-        <div className="globalTopMenu">
+        <div className="globalTopMenu" onClick={onMenuClick}>
             <i className="bi bi-list"></i>
         </div>
     </div>

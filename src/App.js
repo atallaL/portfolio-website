@@ -12,6 +12,7 @@ import {BrowserRouter as Router, Routes, Route, useLocation, useNavigate} from '
 
 //components
 import TopNav from './components/Topbar';
+import SideNav from './components/Sidebar';
 
 function App() {
 
@@ -31,6 +32,8 @@ function App() {
   //variables
   const location = useLocation();
   const navigate = useNavigate();
+
+  const menuClickedMethodRef = useRef(null);
 
   //mode handling
   const switchViewMode = () => {
@@ -77,7 +80,20 @@ function App() {
     setTimeout(() => {
       setTransition(false);
     }, 2000)
-  }
+  };
+
+  //handle when menu button is clicked
+  const handleMenuClick = () => {
+    //if we in home page i want it to slide down, if not, do the other expandy thing
+    if(location.pathname === "/") {
+      //use method callback from home
+      menuClickedMethodRef.current();
+    } else {
+      //add logic for thingy
+
+    }
+
+  };
 
   return (
     <>
@@ -86,12 +102,12 @@ function App() {
           <div className="noInteraction"></div>
       )}
 
-      {/* Overlay animation */}
+      {/* page transition animation */}
       {transition && (
         <div className="globalOverlay"></div>
       )}
 
-      {/* transition screen */}
+      {/* mode transition screen */}
       {overlayTransition && (
         <div className="overlay" style={{backgroundColor:overlayBgColor, color:overlayHalftoneColor}}> 
             <div className="overlayIcon">
@@ -100,23 +116,18 @@ function App() {
         </div>
       )}
 
-      {/* show topnav when we not on home page */}
-      {location.pathname !== '/' && <TopNav lightMode={lightMode} switchViewMode={switchViewMode}/>}
+      {/* show sidenav when we not on home page and topnav*/}
+      <TopNav lightMode={lightMode} switchViewMode={switchViewMode} onMenuClick={handleMenuClick}/>
+      <SideNav />
 
       <div className = "App">
         <Routes>
           <Route path="/" element={<Home 
             onNavigate={handlePageTransition} 
             lightMode={lightMode} 
-            switchViewMode={switchViewMode}
             handleNoInteraction={handleNoInteraction}
             noInteraction={noInteraction}
-            overlayTransition={overlayTransition}
-            overlayIconColor={overlayIconColor}
-            overlayBgColor={overlayBgColor}
-            overlayHalftoneColor={overlayHalftoneColor}
-            overlayDropshadow={overlayDropshadow}
-            overlayIcon={overlayIcon}
+            menuClickedMethodRef={menuClickedMethodRef}
           />} />
           <Route path="/about" element={<About onNavigate={handlePageTransition}/>} />
           <Route path="/projects" element={<Projects onNavigate={handlePageTransition}/>} />
