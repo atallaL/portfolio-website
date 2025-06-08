@@ -4,6 +4,14 @@
     display:flex;
     justify-content:center;
     align-items:center;
+    flex-direction: column;
+}
+
+.projectMain > p{
+    margin: 0;
+    color: var(--text);
+    opacity: 0.6;
+    font-size: 12px;
 }
 
 .projectGrid {
@@ -15,8 +23,8 @@
     width:80vw;
     height: 75vh;
     max-width: 1000px;
-    max-height:600px;
-    margin: 40px 0;
+    max-height:500px;
+    margin: 15px 0 40px;
 }
 
 .projectCard {
@@ -33,11 +41,17 @@
     box-shadow: 0 6px 18px var(--projboxshadow);
     transform: scale(1);
     transform-origin: center;
+    cursor: pointer;
     transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.8s ease;
+}
+
+.projectCardContent {
+    margin: 0 50px;
 }
 
 .projectCard h2 {
     margin-top: 40px;
+    margin-bottom: 20px;
     padding: 0 10px;
     font-weight:600;
     font-size: 25px;
@@ -60,8 +74,6 @@
     transform: translateY(0);
     transition: transform 0.3s ease;
 }
-
-
 
 /* if a box is being hovered, do this to rest of boxes*/
 .projectGrid:has(.projectCard:hover) .projectCard {
@@ -101,6 +113,7 @@
 @media only screen and (max-width: 1049px) {
     .projectCard h2 {
         margin-top: 10px;
+        margin-bottom: 5px;
         font-size: 20px;
     }
     .projectCard p {
@@ -131,5 +144,10 @@
         width: 30px;
         height: 30px;
         font-size: 15px;
+    }
+
+    .projectMain > p{
+        margin-bottom: 10px;
+        font-size: 10px;
     }
 }

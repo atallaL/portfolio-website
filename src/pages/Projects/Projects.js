@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 import './Projects.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -7,15 +7,15 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function Projects() {
 
-
-
-
     return (
         <div className = "projectMain">
+            <p>(click a box to view project)</p>
             <div className = "projectGrid">
-                <div className = "projectCard">
-                    <h2>service site</h2>
-                    <p>under construction</p>
+                <div className = "projectCard" onClick={() => window.open("https://atallal.github.io/another-home", "_blank")}>
+                    <div className = "projectCardContent">
+                        <h2>Another Home</h2>
+                        <p><strong>service site:</strong> a high fidelity prototype of an animal shelter website providing animal adoption and rehoming services built using React.js and Bootstrap</p>
+                    </div>
                     <i class="bi bi-box-seam-fill"></i>
                 </div>
                 <div className = "projectCard">
