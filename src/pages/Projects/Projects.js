@@ -18,9 +18,11 @@ function Projects() {
                     </div>
                     <i class="bi bi-box-seam-fill"></i>
                 </div>
-                <div className = "projectCard">
-                    <h2>small game</h2>
-                    <p>currently building</p>
+                <div className = "projectCard" onClick={() => window.open("https://atallal.github.io/quick-type", "_blank")}>
+                    <div className = "projectCardContent">
+                        <h2>quick, type!</h2>
+                        <p><strong>reaction time/typing game:</strong> type the words as fast as you can before time runs out! developed using React.js</p>
+                    </div>
                     <i class="bi bi-joystick"></i>
                 </div>
                 <div className = "projectCard">
