@@ -26,8 +26,10 @@ function Projects() {
                     <i class="bi bi-joystick"></i>
                 </div>
                 <div className = "projectCard">
-                    <h2>e-commerce site</h2>
-                    <p>in development</p>
+                    <div className = "projectCardContent">
+                        <h2>wick.</h2>
+                        <p><strong>e-commerce site:</strong> a high fidelity prototype of a website selling candles focusing on communication built using React.js</p>
+                    </div>
                     <i class="bi bi-bag-fill"></i>
                 </div>
                 <div className = "projectCard">
