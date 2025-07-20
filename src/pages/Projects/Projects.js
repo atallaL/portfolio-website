@@ -32,9 +32,11 @@ function Projects() {
                     </div>
                     <i class="bi bi-bag-fill"></i>
                 </div>
-                <div className = "projectCard">
-                    <h2>analytics site</h2>
-                    <p>coming soon</p>
+                <div className = "projectCard" onClick={() => window.open("https://atallal.github.io/timesaurus", "_blank")}>
+                    <div className = "projectCardContent">
+                        <h2>TimeSaurus</h2>
+                        <p><strong>interactive dashboard:</strong> a dashboard visualizing (generated) word use over time data built using React.js and its Recharts library</p>
+                    </div>
                     <i class="bi bi-bar-chart-line-fill"></i>
                 </div>
             </div>
